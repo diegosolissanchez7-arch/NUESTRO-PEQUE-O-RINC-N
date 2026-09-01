@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nuestro pequeño rincón</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&family=Caveat:wght@400;500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- =====================================
+         PORTAL
+    ====================================== -->
+
+    <main id="portal" class="screen portal">
+
+        <div class="scribble scribble-one">♡</div>
+        <div class="scribble scribble-two">✦</div>
+        <div class="scribble scribble-three">~</div>
+
+        <div class="portal-content">
+
+            <div class="sunflower" id="portalSunflower">
+                🌻
+            </div>
+
+            <h1>NUESTRO PEQUEÑO RINCÓN</h1>
+
+            <p class="subtitle">
+                Este será nuestro lugar escondido
+            </p>
+
+            <form id="loginForm">
+
+                <label for="password">
+                    ¿RECUERDAS?
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    autocomplete="off"
+                    spellcheck="false"
+                >
+
+                <button type="submit">
+                    ENTRAR
+                </button>
+
+                <p id="loginMessage" class="login-message"></p>
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================
+         RINCÓN
+    ====================================== -->
+
+    <main id="home" class="screen page hidden">
+
+        <header class="page-header">
+
+            <button class="sunflower-button" data-home>
+                🌻
+            </button>
+
+            <p class="small-note">
+                nuestro pequeño rincón
+            </p>
+
+        </header>
+
+
+        <section class="main-menu">
+
+            <button class="menu-card" data-section="photos">
+
+                <span class="card-number">01</span>
+
+                <span class="card-title">
+                    NUESTRAS FOTOS
+                </span>
+
+                <span class="card-decoration">♡</span>
+
+            </button>
+
+
+            <button class="menu-card tilted-left" data-section="leaks">
+
+                <span class="card-number">02</span>
+
+                <span class="card-title">
+                    FILTRACIONES
+                </span>
+
+                <span class="card-decoration">✎</span>
+
+            </button>
+
+
+            <button class="menu-card tilted-right" data-section="gift">
+
+                <span class="card-number">03</span>
+
+                <span class="card-title">
+                    REGALO
+                </span>
+
+                <span class="card-decoration">✦</span>
+
+            </button>
+
+        </section>
+
+
+        <p class="home-footer">
+            hay cosas que todavía no están listas.
+            <br>
+            pero las irás descubriendo.
+        </p>
+
+    </main>
+
+
+    <!-- =====================================
+         NUESTRAS FOTOS
+    ====================================== -->
+
+    <main id="photos" class="screen internal-page hidden">
+
+        <button class="floating-sunflower" data-home>
+            🌻
+        </button>
+
+        <div class="section-intro">
+
+            <span class="section-symbol">♡</span>
+
+            <h2>NUESTRAS FOTOS</h2>
+
+            <p>
+                Algunos recuerdos merecen quedarse aquí.
+            </p>
+
+        </div>
+
+
+        <div class="photo-placeholder">
+
+            <div class="empty-photo">
+                +
+            </div>
+
+            <p>
+                AQUÍ IREMOS DEJANDO<br>
+                NUESTROS RECUERDOS
+            </p>
+
+            <button class="add-memory">
+                + AÑADIR UN RECUERDO
+            </button>
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================
+         FILTRACIONES
+    ====================================== -->
+
+    <main id="leaks" class="screen internal-page hidden">
+
+        <button class="floating-sunflower" data-home>
+            🌻
+        </button>
+
+        <div class="section-intro">
+
+            <span class="section-symbol">✎</span>
+
+            <h2>FILTRACIONES</h2>
+
+            <p>
+                No todo puede abrirse todavía
+            </p>
+
+        </div>
+
+
+        <section class="leaks-grid">
+
+
+            <!-- 01 -->
+
+            <button
+                class="leak-card available"
+                data-leak="autoexigencia"
+            >
+
+                <span class="leak-symbol">◇</span>
+
+                <span class="leak-name">
+                    AUTOEXIGENCIA<br>
+                    LIMITANTE
+                </span>
+
+                <span class="leak-status">
+                    DESCUBIERTO
+                </span>
+
+            </button>
+
+
+            <!-- 02 -->
+
+            <button
+                class="leak-card available"
+                data-leak="espejos"
+            >
+
+                <span class="leak-symbol">◌</span>
+
+                <span class="leak-name">
+                    ESPEJOS
+                </span>
+
+                <span class="leak-status">
+                    DESCUBIERTO
+                </span>
+
+            </button>
+
+
+            <!-- 03 -->
+
+            <button
+                class="leak-card available"
+                data-leak="guerrera"
+            >
+
+                <span class="leak-symbol">✦</span>
+
+                <span class="leak-name">
+                    GUERRERA
+                </span>
+
+                <span class="leak-status">
+                    DESCUBIERTO
+                </span>
+
+            </button>
+
+
+            <!-- 04 -->
+
+            <button
+                class="leak-card locked"
+                data-locked
+            >
+
+                <span class="leak-symbol">?</span>
+
+                <span class="leak-name">
+                    FILTRACIÓN
+                </span>
+
+                <span class="leak-status">
+                    OCULTO
+                </span>
+
+            </button>
+
+
+            <!-- 05 -->
+
+            <button
+                class="leak-card locked"
+                data-locked
+            >
+
+                <span class="leak-symbol">?</span>
+
+                <span class="leak-name">
+                    FILTRACIÓN
+                </span>
+
+                <span class="leak-status">
+                    OCULTO
+                </span>
+
+            </button>
+
+
+            <!-- 06 -->
+
+            <button
+                class="leak-card locked"
+                data-locked
+            >
+
+                <span class="leak-symbol">?</span>
+
+                <span class="leak-name">
+                    FILTRACIÓN
+                </span>
+
+                <span class="leak-status">
+                    OCULTO
+                </span>
+
+            </button>
+
+
+            <!-- 07 -->
+
+            <button
+                class="leak-card locked"
+                data-locked
+            >
+
+                <span class="leak-symbol">?</span>
+
+                <span class="leak-name">
+                    FILTRACIÓN
+                </span>
+
+                <span class="leak-status">
+                    OCULTO
+                </span>
+
+            </button>
+
+
+            <!-- 08 -->
+
+            <button
+                class="leak-card locked"
+                data-locked
+            >
+
+                <span class="leak-symbol">?</span>
+
+                <span class="leak-name">
+                    FILTRACIÓN
+                </span>
+
+                <span class="leak-status">
+                    OCULTO
+                </span>
+
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================
+         REGALO
+    ====================================== -->
+
+    <main id="gift" class="screen internal-page hidden">
+
+        <button class="floating-sunflower" data-home>
+            🌻
+        </button>
+
+        <div class="section-intro">
+
+            <span class="section-symbol">♡</span>
+
+            <h2>REGALO</h2>
+
+            <p>
+                Hay cosas que todavía no están listas.
+                <br>
+                Pero las irás descubriendo.
+            </p>
+
+        </div>
+
+
+        <section class="gift-grid">
+
+
+            <!-- REFLEXIONES -->
+
+            <button
+                class="gift-card"
+                data-section="reflections"
+            >
+
+                <span class="gift-icon">
+                    ✎
+                </span>
+
+                <span class="gift-title">
+                    REFLEXIONES OCULTAS
+                </span>
+
+                <span class="gift-subtitle">
+                    mi lado más personal
+                </span>
+
+            </button>
+
+
+            <!-- VIDEO -->
+
+            <button
+                class="gift-card locked-gift"
+                data-locked
+            >
+
+                <span class="gift-icon">
+                    ▰
+                </span>
+
+                <span class="gift-title">
+                    *****
+                </span>
+
+                <span class="gift-subtitle">
+                    todavía no
+                </span>
+
+            </button>
+
+
+            <!-- LIBRO -->
+
+            <button
+                class="gift-card locked-gift"
+                data-locked
+            >
+
+                <span class="gift-icon">
+                    ▤
+                </span>
+
+                <span class="gift-title">
+                    AMOR EN RIMAS II
+                </span>
+
+                <span class="gift-subtitle">
+                    ocho poemas
+                </span>
+
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================
+         REFLEXIONES
+    ====================================== -->
+
+    <main id="reflections" class="screen internal-page hidden">
+
+        <button class="floating-sunflower" data-section="gift">
+            🌻
+        </button>
+
+        <div class="section-intro">
+
+            <span class="section-symbol">◉</span>
+
+            <h2>REFLEXIONES OCULTAS</h2>
+
+            <p>
+                mi lado más personal
+            </p>
+
+        </div>
+
+
+        <section class="reflection-list">
+
+
+            <button class="reflection-card">
+
+                <span class="reflection-symbol">I</span>
+
+                <span class="reflection-title">
+                    CAMBIOS
+                </span>
+
+            </button>
+
+
+            <button class="reflection-card">
+
+                <span class="reflection-symbol">II</span>
+
+                <span class="reflection-title">
+                    ESPEJOS
+                </span>
+
+            </button>
+
+
+            <button class="reflection-card">
+
+                <span class="reflection-symbol">III</span>
+
+                <span class="reflection-title">
+                    BESOS ENFRENTADOS
+                </span>
+
+            </button>
+
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================
+         VISOR DE CONTENIDO
+    ====================================== -->
+
+    <div id="contentModal" class="modal hidden">
+
+        <div class="modal-inner">
+
+            <button id="closeModal" class="close-modal">
+                ×
+            </button>
+
+            <div id="modalContent"></div>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
