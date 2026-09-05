@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nuestro pequeño rincón</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         PORTAL
+    ========================== -->
+
+    <section id="portal" class="screen active">
+
+        <div class="portal-decoration decoration-one">✦</div>
+        <div class="portal-decoration decoration-two">·</div>
+        <div class="portal-decoration decoration-three">✧</div>
+
+        <div class="portal-content">
+
+            <div id="portalSunflower" class="portal-sunflower">
+                🌻
+            </div>
+
+            <h1>NUESTRO PEQUEÑO RINCÓN</h1>
+
+            <p class="subtitle">
+                Este será nuestro lugar escondido
+            </p>
+
+            <form id="passwordForm" class="password-form">
+
+                <input
+                    type="password"
+                    id="passwordInput"
+                    placeholder="introduce la clave..."
+                    autocomplete="off"
+                >
+
+                <button type="submit">
+                    ENTRAR
+                </button>
+
+            </form>
+
+            <p id="passwordMessage" class="password-message"></p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         INICIO
+    ========================== -->
+
+    <section id="home" class="screen">
+
+        <div class="top-decoration">✦</div>
+
+        <header class="main-header">
+
+            <div class="small-sunflower">🌻</div>
+
+            <h2>NUESTRO RINCÓN</h2>
+
+            <p>
+                Algunas cosas solo tienen sentido aquí.
+            </p>
+
+        </header>
+
+
+        <main class="home-grid">
+
+            <button class="home-card card-one" data-section="photos">
+
+                <span class="card-number">01</span>
+
+                <span class="card-symbol">♡</span>
+
+                <span class="card-title">
+                    NUESTRAS FOTOS
+                </span>
+
+                <span class="card-description">
+                    nuestros pequeños recuerdos
+                </span>
+
+            </button>
+
+
+            <button class="home-card card-two" data-section="leaks">
+
+                <span class="card-number">02</span>
+
+                <span class="card-symbol">✎</span>
+
+                <span class="card-title">
+                    FILTRACIONES
+                </span>
+
+                <span class="card-description">
+                    cosas que quizá no debías haber encontrado
+                </span>
+
+            </button>
+
+
+            <button class="home-card card-three" data-section="gift">
+
+                <span class="card-number">03</span>
+
+                <span class="card-symbol">◌</span>
+
+                <span class="card-title">
+                    REGALO
+                </span>
+
+                <span class="card-description">
+                    todavía queda algo por descubrir
+                </span>
+
+            </button>
+
+
+            <!-- NUEVO JUEGO -->
+
+            <button class="home-card card-four" data-section="game">
+
+                <span class="card-number">04</span>
+
+                <span class="card-symbol">🧩</span>
+
+                <span class="card-title">
+                    ¿TE ACUERDAS?
+                </span>
+
+                <span class="card-description">
+                    quizá recuerdes más de lo que crees
+                </span>
+
+            </button>
+
+        </main>
+
+    </section>
+
+
+    <!-- =========================
+         FOTOS
+    ========================== -->
+
+    <section id="photos" class="screen inner-screen">
+
+        <button class="back-button" data-home>
+            ← volver
+        </button>
+
+        <div class="inner-header">
+
+            <span class="section-number">01</span>
+
+            <h2>NUESTRAS FOTOS</h2>
+
+            <p>
+                Momentos que merecen quedarse aquí.
+            </p>
+
+        </div>
+
+
+        <div class="photos-placeholder">
+
+            <div class="photo-plus">+</div>
+
+            <span>AÑADIR UN RECUERDO</span>
+
+            <small>
+                próximamente...
+            </small>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FILTRACIONES
+    ========================== -->
+
+    <section id="leaks" class="screen inner-screen">
+
+        <button class="back-button" data-home>
+            ← volver
+        </button>
+
+        <div class="inner-header">
+
+            <span class="section-number">02</span>
+
+            <h2>FILTRACIONES</h2>
+
+            <p>
+                Algunas cosas se han escapado antes de tiempo.
+            </p>
+
+        </div>
+
+
+        <div class="leaks-grid">
+
+            <button
+                class="leak-card"
+                data-content="autoexigencia"
+            >
+                <span>01</span>
+                <strong>AUTOEXIGENCIA LIMITANTE</strong>
+                <small>ya no está tan escondido</small>
+            </button>
+
+
+            <button
+                class="leak-card"
+                data-content="espejos"
+            >
+                <span>02</span>
+                <strong>ESPEJOS</strong>
+                <small>quizá debas mirarlo dos veces</small>
+            </button>
+
+
+            <button
+                class="leak-card"
+                data-content="guerrera"
+            >
+                <span>03</span>
+                <strong>GUERRERA</strong>
+                <small>una pequeña filtración</small>
+            </button>
+
+
+            <button class="leak-card locked-card">
+                <span>04</span>
+                <strong>████████████</strong>
+                <small>bloqueado</small>
+            </button>
+
+
+            <button class="leak-card locked-card">
+                <span>05</span>
+                <strong>████████████</strong>
+                <small>bloqueado</small>
+            </button>
+
+
+            <button class="leak-card locked-card">
+                <span>06</span>
+                <strong>████████████</strong>
+                <small>bloqueado</small>
+            </button>
+
+
+            <button class="leak-card locked-card">
+                <span>07</span>
+                <strong>████████████</strong>
+                <small>bloqueado</small>
+            </button>
+
+
+            <button class="leak-card locked-card">
+                <span>08</span>
+                <strong>████████████</strong>
+                <small>bloqueado</small>
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         REGALO
+    ========================== -->
+
+    <section id="gift" class="screen inner-screen">
+
+        <button class="back-button" data-home>
+            ← volver
+        </button>
+
+        <div class="inner-header">
+
+            <span class="section-number">03</span>
+
+            <h2>REGALO</h2>
+
+            <p>
+                Si has llegado hasta aquí, todavía queda algo.
+            </p>
+
+        </div>
+
+
+        <div class="gift-list">
+
+            <button
+                class="gift-item"
+                data-section="reflections"
+            >
+
+                <span class="gift-icon">✎</span>
+
+                <span>
+                    <strong>REFLEXIONES OCULTAS</strong>
+                    <small>cosas que nunca dije del todo</small>
+                </span>
+
+            </button>
+
+
+            <button
+                class="gift-item locked-content"
+                data-locked="video"
+            >
+
+                <span class="gift-icon">▱</span>
+
+                <span>
+                    <strong>VÍDEO</strong>
+                    <small>todavía no puedes ver esto</small>
+                </span>
+
+                <span class="lock-symbol">🔒</span>
+
+            </button>
+
+
+            <button
+                class="gift-item locked-content"
+                data-locked="book"
+            >
+
+                <span class="gift-icon">☰</span>
+
+                <span>
+                    <strong>AMOR EN RIMAS II</strong>
+                    <small>la segunda edición</small>
+                </span>
+
+                <span class="lock-symbol">🔒</span>
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         REFLEXIONES
+    ========================== -->
+
+    <section id="reflections" class="screen inner-screen">
+
+        <button class="back-button" data-section="gift">
+            ← volver
+        </button>
+
+        <div class="inner-header">
+
+            <span class="section-number">✎</span>
+
+            <h2>REFLEXIONES OCULTAS</h2>
+
+            <p>
+                Algunas cosas se entienden mejor escritas.
+            </p>
+
+        </div>
+
+
+        <div class="reflection-list">
+
+            <button
+                class="reflection-item"
+                data-reflection="cambios"
+            >
+                <span>01</span>
+                <strong>CAMBIOS</strong>
+                <small>...</small>
+            </button>
+
+
+            <button
+                class="reflection-item"
+                data-reflection="espejosReflection"
+            >
+                <span>02</span>
+                <strong>ESPEJOS</strong>
+                <small>...</small>
+            </button>
+
+
+            <button
+                class="reflection-item"
+                data-reflection="besos"
+            >
+                <span>03</span>
+                <strong>BESOS ENFRENTADOS</strong>
+                <small>...</small>
+            </button>
+
+        </div>
+
+
+        <div class="floating-sunflower" data-section="gift">
+            🌻
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         JUEGO DE MEMORIA
+    ========================== -->
+
+    <section id="game" class="screen game-screen">
+
+        <button class="back-button game-back" data-home>
+            ← salir
+        </button>
+
+
+        <!-- INTRO -->
+
+        <div id="gameIntro" class="game-view active">
+
+            <div class="game-symbol-big">
+                🧩
+            </div>
+
+            <span class="game-label">
+                UN PEQUEÑO JUEGO
+            </span>
+
+            <h2>
+                ¿TE ACUERDAS?
+            </h2>
+
+            <p>
+                Te enseñaré una serie de símbolos.
+            </p>
+
+            <p>
+                Tendrás que recordarlos
+                <br>
+                y repetirlos exactamente en el mismo orden.
+            </p>
+
+            <p class="game-warning">
+                Cada nivel será un poco más difícil.
+            </p>
+
+            <button id="startGameButton" class="game-button">
+                EMPEZAR
+            </button>
+
+        </div>
+
+
+        <!-- NIVEL -->
+
+        <div id="gameLevel" class="game-view">
+
+            <div class="level-top">
+
+                <span id="levelNumber">
+                    NIVEL I
+                </span>
+
+                <span id="levelProgress">
+                    1 / 6
+                </span>
+
+            </div>
+
+
+            <div class="level-title-wrapper">
+
+                <h2 id="levelTitle">
+                    RECUERDA
+                </h2>
+
+                <p id="levelInstruction">
+                    Observa bien...
+                </p>
+
+            </div>
+
+
+            <div id="sequenceArea" class="sequence-area">
+            </div>
+
+
+            <div id="gameGrid" class="game-grid">
+            </div>
+
+
+            <p id="gameFeedback" class="game-feedback"></p>
+
+        </div>
+
+
+        <!-- ÉXITO DEL NIVEL -->
+
+        <div id="levelSuccess" class="game-view">
+
+            <div class="success-symbol">
+                ✓
+            </div>
+
+            <h2>
+                BIEN.
+            </h2>
+
+            <p id="levelSuccessText">
+                Pero todavía quedan cosas que recordar.
+            </p>
+
+            <button id="nextLevelButton" class="game-button">
+                CONTINUAR
+            </button>
+
+        </div>
+
+
+        <!-- ERROR -->
+
+        <div id="gameFailure" class="game-view">
+
+            <div class="failure-symbol">
+                ×
+            </div>
+
+            <h2>
+                Mmm...
+            </h2>
+
+            <p>
+                Creo que has olvidado algo.
+            </p>
+
+            <p class="failure-small">
+                Tendrás que empezar de nuevo.
+            </p>
+
+            <button id="retryGameButton" class="game-button">
+                VOLVER A INTENTAR
+            </button>
+
+        </div>
+
+
+        <!-- =====================
+             FINAL
+        ====================== -->
+
+        <div id="gameFinal" class="game-view final-game-view">
+
+            <div id="finalParticles"></div>
+
+            <div id="finalMessage" class="final-message">
+
+                <p class="final-small-text">
+                    LO RECUERDAS TODO.
+                </p>
+
+                <div id="finalSymbols" class="final-symbols">
+                </div>
+
+                <p id="finalLastText" class="final-last-text">
+                    UNA ÚLTIMA COSA QUE RECORDAR...
+                </p>
+
+            </div>
+
+
+            <div id="passwordReveal" class="password-reveal">
+
+                <span class="reveal-label">
+                    LA CLAVE ES
+                </span>
+
+                <div id="revealedPassword" class="revealed-password">
+                </div>
+
+                <p>
+                    No la olvides.
+                </p>
+
+                <small>
+                    Te llevará a un lugar que todavía no has visto.
+                </small>
+
+                <button
+                    id="continueAfterGame"
+                    class="game-button final-button"
+                    data-section="home"
+                >
+                    CONTINUAR
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         MODAL
+    ========================== -->
+
+    <div id="contentModal" class="modal">
+
+        <div class="modal-background"></div>
+
+        <div class="modal-box">
+
+            <button id="closeModal" class="modal-close">
+                ×
+            </button>
+
+            <span id="modalNumber" class="modal-number"></span>
+
+            <h2 id="modalTitle"></h2>
+
+            <div id="modalContent" class="modal-content">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
