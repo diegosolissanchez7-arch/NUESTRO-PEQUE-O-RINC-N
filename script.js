@@ -222,6 +222,19 @@ ya me levanté contigo...`
 
     }
 
+    cuentagotas: {
+
+        number: "04",
+
+        title: "CUENTAGOTAS",
+
+        content:
+`Ojalá siempre cuentes mis lágrimas
+***************
+Para regar mis lagrimales en invierno`
+
+    }
+
 };
 
 
