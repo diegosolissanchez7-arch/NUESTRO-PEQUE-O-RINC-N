@@ -340,6 +340,55 @@ Por un momento mi arma se detiene, el fuego cesa y la lluvia la frenamos con un 
 
 };
 
+/* =========================================================
+   REFLEXIÓN PROTEGIDA — CUENTAGOTAS
+========================================================= */
+
+const CUENTAGOTAS_PASSWORD = "CUENTALASGOTAS";
+
+const cuentagotasText =
+`Prométeme que siempre tendré un hueco entre tus brazos. Un lugar para hospedarme hasta que se detenga la tormenta.
+
+Protégeme de mi mismo, y acaríciame para que recuerde quién soy y dónde vivo. Pues contigo se me olvida todo, mi nombre, mi voz y hasta dónde habito.
+
+Contigo vuelvo a ser de vidrio, aunque si me cuidas aparentaré ser fuerte durante un rato. Pero sé de sobra que mi armadura es frágil, y que es cuestión de tiempo que se deshaga entre tus brazos; para volver a rehacerse más fuerte e intentar que la lluvia no la deje hecha pedazos.`;
+
+
+/* =========================================================
+   ABRIR CUENTAGOTAS CON CONTRASEÑA
+========================================================= */
+
+document
+    .querySelector(".locked-reflection")
+    .addEventListener("click", () => {
+
+        const password = prompt(
+            "Esta reflexión está protegida.\n\nIntroduce la contraseña:"
+        );
+
+        if (password === null) return;
+
+        if (password.trim() === CUENTAGOTAS_PASSWORD) {
+
+            openModal(
+                "04",
+                "CUENTAGOTAS",
+                cuentagotasText
+            );
+
+        } else {
+
+            openModal(
+                "🔒",
+                "ACCESO DENEGADO",
+                "Esa no es la palabra que estás buscando."
+            );
+
+        }
+
+    });
+
+
 
 /* =========================================================
    ABRIR REFLEXIONES
