@@ -1,82 +1,75 @@
-/* =========================================
-   CONFIGURACIÓN
-========================================= */
+/* =========================================================
+   CONFIGURACIÓN GENERAL
+========================================================= */
+
+
+/*
+   IMPORTANTE:
+
+   Esta contraseña es la del PORTAL inicial.
+   Si tu contraseña actual es otra, cambia solamente esta línea.
+*/
 
 const PORTAL_PASSWORD = "1CHL13B3DICH";
 
 
-/* =========================================
-   ELEMENTOS
-========================================= */
+/*
+   CONTRASEÑA FINAL DEL JUEGO
 
-const portal = document.getElementById("portal");
-const home = document.getElementById("home");
-const portalSunflower = document.getElementById("portalSunflower");
+   Se revela al completar los 6 niveles.
+*/
 
-const loginForm = document.getElementById("loginForm");
-const passwordInput = document.getElementById("password");
-const loginMessage = document.getElementById("loginMessage");
+const FINAL_PASSWORD = "3NTUSBR4Z0S";
+
+
+/* =========================================================
+   ELEMENTOS GENERALES
+========================================================= */
+
+const screens = document.querySelectorAll(".screen");
 
 const modal = document.getElementById("contentModal");
+const modalTitle = document.getElementById("modalTitle");
 const modalContent = document.getElementById("modalContent");
+const modalNumber = document.getElementById("modalNumber");
 const closeModal = document.getElementById("closeModal");
 
 
-/* =========================================
-   MENSAJES
-========================================= */
-
-const wrongPasswordMessages = [
-
-    "Mmm... por aquí no es.",
-
-    "Casi... pero no.",
-
-    "¿Seguro que esa era la clave?",
-
-    "No parece que esto se abra así...",
-
-    "Por ahí no vas a encontrarlo.",
-
-    "Mmm... inténtalo en otro rincón.",
-
-    "Creo que tendrás que seguir buscando."
-
-];
-
-
-/* =========================================
-   NAVEGACIÓN
-========================================= */
+/* =========================================================
+   CAMBIO DE PANTALLAS
+========================================================= */
 
 function showScreen(id) {
 
-    document.querySelectorAll(".screen").forEach(screen => {
-        screen.classList.add("hidden");
+    screens.forEach(screen => {
+        screen.classList.remove("active");
     });
 
     const target = document.getElementById(id);
 
     if (target) {
-        target.classList.remove("hidden");
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
+        target.classList.add("active");
     }
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 }
 
 
-/* =========================================
-   BOTONES DE SECCIÓN
-========================================= */
+/* Botones data-section */
 
 document.querySelectorAll("[data-section]").forEach(button => {
 
     button.addEventListener("click", () => {
 
         const section = button.dataset.section;
+
+        if (section === "home") {
+            showScreen("home");
+            return;
+        }
 
         showScreen(section);
 
@@ -85,164 +78,94 @@ document.querySelectorAll("[data-section]").forEach(button => {
 });
 
 
-/* =========================================
-   VOLVER AL HOME
-========================================= */
+/* Botones volver al inicio */
 
 document.querySelectorAll("[data-home]").forEach(button => {
 
     button.addEventListener("click", () => {
-
         showScreen("home");
-
     });
 
 });
 
 
-/* =========================================
-   LOGIN
-========================================= */
+/* =========================================================
+   PORTAL
+========================================================= */
 
-loginForm.addEventListener("submit", event => {
+const passwordForm = document.getElementById("passwordForm");
+const passwordInput = document.getElementById("passwordInput");
+const passwordMessage = document.getElementById("passwordMessage");
+const portalSunflower = document.getElementById("portalSunflower");
+
+
+const wrongMessages = [
+    "Mmm... por aquí no es.",
+    "Casi... pero no.",
+    "¿Seguro que esa era la clave?",
+    "No parece que esto se abra así...",
+    "UPS, lo siento, no tienes acceso todavía por aquí.",
+    "Mmm... creo que tendrás que esperar.",
+    "VAYA, parece que todavía no puedes."
+];
+
+
+passwordForm.addEventListener("submit", function(event) {
 
     event.preventDefault();
 
-    const enteredPassword =
-        passwordInput.value.trim();
+    const enteredPassword = passwordInput.value.trim();
 
     if (enteredPassword === PORTAL_PASSWORD) {
 
-        unlockPortal();
+        passwordMessage.textContent = "";
+
+        portalSunflower.classList.add("show");
+        portalSunflower.classList.add("unlock");
+
+        passwordInput.disabled = true;
+
+        setTimeout(() => {
+
+            showScreen("home");
+
+            passwordInput.disabled = false;
+            passwordInput.value = "";
+
+        }, 2200);
 
     } else {
 
-        showWrongPassword();
+        const randomMessage =
+            wrongMessages[
+                Math.floor(Math.random() * wrongMessages.length)
+            ];
+
+        passwordMessage.textContent = randomMessage;
+
+        passwordInput.value = "";
+
+        passwordInput.focus();
 
     }
 
 });
 
 
-/* =========================================
-   CONTRASEÑA INCORRECTA
-========================================= */
+/* =========================================================
+   CONTENIDO DE FILTRACIONES
+========================================================= */
 
-function showWrongPassword() {
-
-    const randomIndex =
-        Math.floor(
-            Math.random() *
-            wrongPasswordMessages.length
-        );
-
-    loginMessage.textContent =
-        wrongPasswordMessages[randomIndex];
-
-    loginMessage.classList.add("visible");
-
-    passwordInput.value = "";
-
-    passwordInput.focus();
-
-}
-
-
-/* =========================================
-   DESBLOQUEAR PORTAL
-========================================= */
-
-function unlockPortal() {
-
-    loginMessage.classList.remove("visible");
-
-    passwordInput.blur();
-
-    portalSunflower.classList.add("unlock");
-
-    setTimeout(() => {
-
-        portal.style.opacity = "0";
-
-        portal.style.transform = "scale(1.04)";
-
-    }, 900);
-
-
-    setTimeout(() => {
-
-        portal.style.display = "none";
-
-        showScreen("home");
-
-    }, 1800);
-
-}
-
-
-/* =========================================
-   FILTRACIONES BLOQUEADAS
-========================================= */
-
-document.querySelectorAll("[data-locked]").forEach(button => {
-
-    button.addEventListener("click", () => {
-
-        showLockedMessage();
-
-    });
-
-});
-
-
-function showLockedMessage() {
-
-    const messages = [
-
-        "Mmm... creo que tendrás que esperar.",
-
-        "Ups, lo siento, no tienes acceso todavía por aquí.",
-
-        "Vaya... parece que todavía no puedes.",
-
-        "¿Ya estás intentando entrar? Qué impaciente...",
-
-        "Aquí todavía no hay nada para ti... 🤭"
-
-    ];
-
-    const message =
-        messages[
-            Math.floor(Math.random() * messages.length)
-        ];
-
-    modalContent.innerHTML = `
-
-        <div class="content-title">
-            ${message}
-        </div>
-
-    `;
-
-    modal.classList.remove("hidden");
-
-}
-
-
-/* =========================================
-   CONTENIDOS
-========================================= */
-
-const contents = {
-
+const leakContent = {
 
     autoexigencia: {
 
+        number: "01",
+
         title: "AUTOEXIGENCIA LIMITANTE",
 
-        type: "poem",
-
-        text: `Espíritu irrealizable
+        content:
+`Espíritu irrealizable
 Sentido insignificante
 ante mares inavegables
 
@@ -261,23 +184,24 @@ Yo la encuentro dentro de ti.`
 
     espejos: {
 
+        number: "02",
+
         title: "ESPEJOS",
 
-        type: "poem",
-
-        text: `Ojalá un mundo sin espejos
+        content:
+`Ojalá un mundo sin espejos
 y sin muestras superficiales
 que no permita que los reflejos
-se apoderen de las verdades
+se apoderen de las verdades 
 
-Injustas las imágenes
+Injustas las imágenes 
 Si solo enseñan una superficie
-Que artificiales los márgenes
-Yo aprecio tus raíces
+Que artificiales los márgenes 
+Yo aprecio tus raíces 
 
 Mírate dentro de mi
 Y obsérvate más orgullosa
-Quizá sea muy idealista
+Quizá sea muy idealista 
 Pero menos artificiosa`
 
     },
@@ -285,213 +209,990 @@ Pero menos artificiosa`
 
     guerrera: {
 
+        number: "03",
+
         title: "GUERRERA",
 
-        type: "poem",
+        content:
+`Y si piensas que te caes,
+para mí tú ya has vencido.
 
-        text: `Y si piensas que te caes, para mí tú ya has vencido
-
-Y si pienso que me caigo ya me levanté contigo...
-
-[ ... ]`
+Y si pienso que me caigo
+ya me levanté contigo...`
 
     }
 
 };
 
 
-/* =========================================
-   ABRIR FILTRACIÓN
-========================================= */
+/* =========================================================
+   ABRIR FILTRACIONES
+========================================================= */
 
-document.querySelectorAll("[data-leak]").forEach(button => {
+document.querySelectorAll(".leak-card[data-content]").forEach(card => {
 
-    button.addEventListener("click", () => {
+    card.addEventListener("click", () => {
 
-        const leak = button.dataset.leak;
+        const key = card.dataset.content;
 
-        openContent(contents[leak]);
+        const content = leakContent[key];
+
+        if (!content) return;
+
+        openModal(
+            content.number,
+            content.title,
+            content.content
+        );
 
     });
 
 });
 
 
-/* =========================================
+/* =========================================================
+   FILTRACIONES BLOQUEADAS
+========================================================= */
+
+document.querySelectorAll(".locked-card").forEach(card => {
+
+    card.addEventListener("click", () => {
+
+        const messages = [
+            "Mmm... por aquí no es.",
+            "Casi... pero no.",
+            "¿Seguro que esa era la clave?",
+            "No parece que esto se abra así...",
+            "UPS, lo siento, no tienes acceso todavía por aquí."
+        ];
+
+        const message =
+            messages[Math.floor(Math.random() * messages.length)];
+
+        openModal(
+            "🔒",
+            "BLOQUEADO",
+            message
+        );
+
+    });
+
+});
+
+
+/* =========================================================
    REFLEXIONES
-========================================= */
+========================================================= */
 
 const reflections = {
 
     cambios: {
 
+        number: "01",
+
         title: "CAMBIOS",
 
-        text: `A veces me pregunto si ha cambiado algo en mi vida desde que te conocí, y, realmente, la duda debería de ofenderme, pues claro que han cambiado muchísimas cosas.
-
-No obstante, como contigo he tenido la suerte de llevar una relación día a día y sin la necesidad de forzar nada, los cambios han sido tan naturales que parece que todo siga igual que antes.
-
-Pero.... Obviamente no.
-
-Por mucho que nos hayamos adaptado progresivamente los cambios son indudables si nos remontamos a un año y medio atrás.
-
-Y no hablo simplemente de unos planes en el futuro o de una nueva compañía, me refiero a modificaciones menos evidentes pero que significan mucho para los dos...`
+        content:
+`A veces me pregunto si ha cambiado algo en mi vida desde que te conocí, y, realmente, la duda debería de ofenderme, pues claro que han cambiado muchísimas cosas. No obstante, como contigo he tenido la suerte de llevar una relación día a día y sin la necesidad de forzar nada, los cambios han sido tan naturales que parece que todo siga igual que antes. Pero.... Obviamente no. Por mucho que nos hayamos adaptado progresivamente los cambios son indudables si nos remontamos a un año y medio atrás. Y no hablo simplemente de unos planes en el futuro o de una nueva compañía, me refiero a modificaciones menos evidentes pero que significan mucho para los dos...`
 
     },
 
 
     espejosReflection: {
 
+        number: "02",
+
         title: "ESPEJOS",
 
-        text: `Ojalá un mundo sin espejos. Sin ningún objeto que te permita sentirte mal contigo misma diariamente.
+        content:
+`Ojalá un mundo sin espejos. Sin ningún objeto que te permita sentirte mal contigo misma diariamente. Ojalá pudieras conocerte a través de la imagen que tengo de ti. Esa que solo yo conozco y que me encantaría enseñarte. Realmente, me gustaría ser tu propio espejo. No sé si pecaría de idealista o si la imagen que te mostrase deformara tu realidad de igual manera que el resto de espejos. Lo que si que sé es que te destaparía miles de detalles que tú sola no eres capaz de reconocer. Te permitiría encontrarte con, no sé si verdadera, pero, tu "más justa yo". Porque sí, a lo mejor peco de idealista como ya he comentado, pero sé al menos que mis imágenes contemplarían trocitos preciosos aparentemente inexistentes para ti.
 
-Ojalá pudieras conocerte a través de la imagen que tengo de ti. Esa que solo yo conozco y que me encantaría enseñarte.
-
-Realmente, me gustaría ser tu propio espejo.
-
-No sé si pecaría de idealista o si la imagen que te mostrase deformara tu realidad de igual manera que el resto de espejos.
-
-Lo que si que sé es que te destaparía miles de detalles que tú sola no eres capaz de reconocer.
-
-Te permitiría encontrarte con, no sé si verdadera, pero, tu "más justa yo".
-
-Porque sí, a lo mejor peco de idealista como ya he comentado, pero sé al menos que mis imágenes contemplarían trocitos preciosos aparentemente inexistentes para ti.
-
-Ojalá destruir todos los espejos y dejar tan solo nuestros corazones.
-
-El mío también tiene mucho de ti.
-
-Si lo observaras te encontrarías también con tu yo más pura.
-
-Esa que yo me guardo en lo más profundo de mí y que ya no se puede eliminar de ninguna forma.
-
-No sé, me da rabia que sean objetos tan injustos.
-
-Es lo que tiene, ¿No?
-
-Al final, cuando un reflejo contiene solo una superficie se pierde el interior completo de la imagen.
-
-La belleza de un árbol se sustenta justo en sus raíces.
-
-Sin embargo, todos dejamos nuestra mirada a medias.
-
-Por eso te pido que te mires en mi interior.
-
-Puede que mi mirada sea demasiado generosa, pero te aseguro que no se quedará a medias como la del resto de espejos.`
+Ojalá destruir todos los espejos y dejar tan solo nuestros corazones. El mío también tiene mucho de ti. Si lo observaras te encontrarías también con tu yo más pura. Esa que yo me guardo en lo más profundo de mí y que ya no se puede eliminar de ninguna forma. No sé, me da rabia que sean objetos tan injustos. Es lo que tiene, ¿No? Al final, cuando un reflejo contiene solo una superficie se pierde el interior completo de la imagen. La belleza de un árbol se sustenta justo en sus raíces. Sin embargo, todos dejamos nuestra mirada a medias. Por eso te pido que te mires en mi interior. Puede que mi mirada sea demasiado generosa, pero te aseguro que no se quedará a medias como la del resto de espejos.`
 
     },
 
 
     besos: {
 
+        number: "03",
+
         title: "BESOS ENFRENTADOS",
 
-        text: `Que sensación tan agridulce cuando en medio de una discusión con mi pareja decido darle un beso. Así, sin pensármelo demasiado.
+        content:
+`Que sensación tan agridulce cuando en medio de una discusión con mi pareja decido darle un beso. Así, sin pensármelo demasiado.
 
-Por un momento mi arma se detiene, el fuego cesa y la lluvia la frenamos con un paraguas de cartón.
-
-Porque durante unos segundos, antes de retomar el conflicto y volver a los disparos, nuestras bocas dejan de vomitar palabras vacías y se funden tímidamente en el hombro del otro para recordarnos que nuestro amor sigue flotando.`
+Por un momento mi arma se detiene, el fuego cesa y la lluvia la frenamos con un paraguas de cartón. Porque durante unos segundos, antes de retomar el conflicto y volver a los disparos, nuestras bocas dejan de vomitar palabras vacías y se funden tímidamente en el hombro del otro para recordarnos que nuestro amor sigue flotando.`
 
     }
 
 };
 
 
-/* =========================================
-   BOTONES REFLEXIONES
-========================================= */
+/* =========================================================
+   ABRIR REFLEXIONES
+========================================================= */
 
-const reflectionButtons =
-    document.querySelectorAll(".reflection-card");
+document.querySelectorAll(".reflection-item").forEach(item => {
 
-reflectionButtons[0]?.addEventListener(
-    "click",
-    () => openContent(reflections.cambios)
-);
+    item.addEventListener("click", () => {
 
-reflectionButtons[1]?.addEventListener(
-    "click",
-    () => openContent(reflections.espejosReflection)
-);
+        const key = item.dataset.reflection;
 
-reflectionButtons[2]?.addEventListener(
-    "click",
-    () => openContent(reflections.besos)
-);
+        const content = reflections[key];
 
+        if (!content) return;
 
-/* =========================================
-   ABRIR CONTENIDO
-========================================= */
+        openModal(
+            content.number,
+            content.title,
+            content.content
+        );
 
-function openContent(content) {
-
-    if (!content) return;
-
-    const className =
-        content.type === "poem"
-            ? "poem"
-            : "reflection-text";
-
-    modalContent.innerHTML = `
-
-        <div class="content-title">
-            ${content.title}
-        </div>
-
-        <div class="${className}">
-            ${escapeHTML(content.text)}
-        </div>
-
-    `;
-
-    modal.classList.remove("hidden");
-
-}
-
-
-/* =========================================
-   SEGURIDAD BÁSICA DE TEXTO
-========================================= */
-
-function escapeHTML(text) {
-
-    return text
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
-}
-
-
-/* =========================================
-   CERRAR MODAL
-========================================= */
-
-closeModal.addEventListener("click", () => {
-
-    modal.classList.add("hidden");
+    });
 
 });
 
 
-modal.addEventListener("click", event => {
+/* =========================================================
+   MODAL
+========================================================= */
 
-    if (event.target === modal) {
+function openModal(number, title, content) {
 
-        modal.classList.add("hidden");
+    modalNumber.textContent = number;
+    modalTitle.textContent = title;
+    modalContent.textContent = content;
 
-    }
+    modal.classList.add("active");
 
-});
+}
+
+
+function closeContentModal() {
+
+    modal.classList.remove("active");
+
+}
+
+
+closeModal.addEventListener(
+    "click",
+    closeContentModal
+);
+
+
+document.querySelector(".modal-background").addEventListener(
+    "click",
+    closeContentModal
+);
 
 
 document.addEventListener("keydown", event => {
 
     if (event.key === "Escape") {
-
-        modal.classList.add("hidden");
-
+        closeContentModal();
     }
 
 });
+
+
+/* =========================================================
+   CONTENIDO BLOQUEADO DEL REGALO
+========================================================= */
+
+document.querySelectorAll(".locked-content").forEach(item => {
+
+    item.addEventListener("click", () => {
+
+        const type = item.dataset.locked;
+
+        if (type === "video") {
+
+            openModal(
+                "🔒",
+                "VÍDEO",
+                "Mmm... creo que todavía no tienes acceso a esto."
+            );
+
+        }
+
+        if (type === "book") {
+
+            openModal(
+                "🔒",
+                "AMOR EN RIMAS II",
+                "UPS... parece que todavía no puedes abrirlo."
+            );
+
+        }
+
+    });
+
+});
+
+
+/* =========================================================
+   =========================================================
+                      JUEGO DE MEMORIA
+   =========================================================
+========================================================= */
+
+
+/*
+   LOS 15 SÍMBOLOS
+*/
+
+const memorySymbols = [
+    "🐿️",
+    "🌻",
+    "❤️",
+    "💛",
+    "🦆",
+    "🤐",
+    "💧",
+    "😭",
+    "🫂",
+    "💋",
+    "🧩",
+    "🌙",
+    "⭐",
+    "🦋",
+    "🎀"
+];
+
+
+/*
+   6 niveles:
+
+   I   = 4
+   II  = 6
+   III = 8
+   IV  = 10
+   V   = 12
+   VI  = 15
+*/
+
+const gameLevels = [
+    {
+        amount: 4,
+        roman: "I"
+    },
+    {
+        amount: 6,
+        roman: "II"
+    },
+    {
+        amount: 8,
+        roman: "III"
+    },
+    {
+        amount: 10,
+        roman: "IV"
+    },
+    {
+        amount: 12,
+        roman: "V"
+    },
+    {
+        amount: 15,
+        roman: "VI"
+    }
+];
+
+
+/* =========================================================
+   ELEMENTOS DEL JUEGO
+========================================================= */
+
+const gameIntro = document.getElementById("gameIntro");
+const gameLevel = document.getElementById("gameLevel");
+const levelSuccess = document.getElementById("levelSuccess");
+const gameFailure = document.getElementById("gameFailure");
+const gameFinal = document.getElementById("gameFinal");
+
+const startGameButton =
+    document.getElementById("startGameButton");
+
+const nextLevelButton =
+    document.getElementById("nextLevelButton");
+
+const retryGameButton =
+    document.getElementById("retryGameButton");
+
+const sequenceArea =
+    document.getElementById("sequenceArea");
+
+const gameGrid =
+    document.getElementById("gameGrid");
+
+const levelNumber =
+    document.getElementById("levelNumber");
+
+const levelProgress =
+    document.getElementById("levelProgress");
+
+const levelTitle =
+    document.getElementById("levelTitle");
+
+const levelInstruction =
+    document.getElementById("levelInstruction");
+
+const gameFeedback =
+    document.getElementById("gameFeedback");
+
+
+/* =========================================================
+   ESTADO DEL JUEGO
+========================================================= */
+
+let currentLevel = 0;
+
+let currentSequence = [];
+
+let playerSequence = [];
+
+let acceptingInput = false;
+
+
+/* =========================================================
+   CAMBIAR VISTA DEL JUEGO
+========================================================= */
+
+function showGameView(view) {
+
+    [
+        gameIntro,
+        gameLevel,
+        levelSuccess,
+        gameFailure,
+        gameFinal
+    ].forEach(element => {
+
+        element.classList.remove("active");
+
+    });
+
+    view.classList.add("active");
+
+}
+
+
+/* =========================================================
+   EMPEZAR
+========================================================= */
+
+startGameButton.addEventListener("click", () => {
+
+    currentLevel = 0;
+
+    startCurrentLevel();
+
+});
+
+
+/* =========================================================
+   GENERAR SECUENCIA
+========================================================= */
+
+function generateSequence(amount) {
+
+    const shuffled = [...memorySymbols];
+
+    shuffleArray(shuffled);
+
+    return shuffled.slice(0, amount);
+
+}
+
+
+/* =========================================================
+   SHUFFLE
+========================================================= */
+
+function shuffleArray(array) {
+
+    for (
+        let i = array.length - 1;
+        i > 0;
+        i--
+    ) {
+
+        const j =
+            Math.floor(Math.random() * (i + 1));
+
+        [
+            array[i],
+            array[j]
+        ] =
+        [
+            array[j],
+            array[i]
+        ];
+
+    }
+
+    return array;
+
+}
+
+
+/* =========================================================
+   INICIAR NIVEL
+========================================================= */
+
+function startCurrentLevel() {
+
+    const level = gameLevels[currentLevel];
+
+    currentSequence =
+        generateSequence(level.amount);
+
+    playerSequence = [];
+
+    acceptingInput = false;
+
+    showGameView(gameLevel);
+
+    levelNumber.textContent =
+        `NIVEL ${level.roman}`;
+
+    levelProgress.textContent =
+        `${currentLevel + 1} / ${gameLevels.length}`;
+
+    levelTitle.textContent =
+        "RECUERDA";
+
+    levelInstruction.textContent =
+        "Observa bien...";
+
+    gameFeedback.textContent = "";
+
+    sequenceArea.innerHTML = "";
+
+    gameGrid.innerHTML = "";
+
+    /*
+       Primero enseñamos la secuencia.
+    */
+
+    showSequence();
+
+}
+
+
+/* =========================================================
+   MOSTRAR SECUENCIA
+========================================================= */
+
+async function showSequence() {
+
+    sequenceArea.innerHTML = "";
+
+    /*
+       Tiempo inicial
+    */
+
+    await wait(600);
+
+    for (
+        let i = 0;
+        i < currentSequence.length;
+        i++
+    ) {
+
+        const symbol =
+            document.createElement("div");
+
+        symbol.className = "sequence-symbol";
+
+        symbol.textContent =
+            currentSequence[i];
+
+        symbol.style.animationDelay =
+            `${i * 0.08}s`;
+
+        sequenceArea.appendChild(symbol);
+
+        await wait(330);
+
+    }
+
+
+    /*
+       Dejamos la secuencia visible
+       un pequeño momento.
+    */
+
+    await wait(1300);
+
+
+    /*
+       La borramos.
+    */
+
+    sequenceArea.innerHTML = "";
+
+    levelTitle.textContent =
+        "AHORA TÚ";
+
+    levelInstruction.textContent =
+        "Repite la secuencia en el mismo orden.";
+
+    createMemoryGrid();
+
+}
+
+
+/* =========================================================
+   CREAR TABLERO
+========================================================= */
+
+function createMemoryGrid() {
+
+    gameGrid.innerHTML = "";
+
+    /*
+       Siempre aparecen los 15 símbolos,
+       mezclados.
+    */
+
+    const shuffledSymbols =
+        [...memorySymbols];
+
+    shuffleArray(shuffledSymbols);
+
+
+    shuffledSymbols.forEach(symbol => {
+
+        const card =
+            document.createElement("button");
+
+        card.className = "memory-card";
+
+        card.textContent = symbol;
+
+        card.dataset.symbol = symbol;
+
+        card.addEventListener(
+            "click",
+            () => handleMemoryClick(card, symbol)
+        );
+
+        gameGrid.appendChild(card);
+
+    });
+
+
+    acceptingInput = true;
+
+}
+
+
+/* =========================================================
+   CLICK DEL JUGADOR
+========================================================= */
+
+function handleMemoryClick(card, symbol) {
+
+    if (!acceptingInput) return;
+
+    /*
+       Evitar pulsar dos veces
+       el mismo símbolo.
+    */
+
+    if (card.classList.contains("selected")) {
+        return;
+    }
+
+
+    const expectedSymbol =
+        currentSequence[playerSequence.length];
+
+
+    /*
+       ERROR
+    */
+
+    if (symbol !== expectedSymbol) {
+
+        acceptingInput = false;
+
+        card.classList.add("wrong");
+
+        gameFeedback.textContent =
+            "Ese no era...";
+
+        setTimeout(() => {
+
+            showGameView(gameFailure);
+
+        }, 650);
+
+        return;
+
+    }
+
+
+    /*
+       CORRECTO
+    */
+
+    playerSequence.push(symbol);
+
+    card.classList.add("selected");
+
+
+    /*
+       ¿Ha terminado el nivel?
+    */
+
+    if (
+        playerSequence.length ===
+        currentSequence.length
+    ) {
+
+        acceptingInput = false;
+
+        setTimeout(() => {
+
+            levelCompleted();
+
+        }, 500);
+
+    }
+
+}
+
+
+/* =========================================================
+   NIVEL COMPLETADO
+========================================================= */
+
+function levelCompleted() {
+
+    /*
+       Último nivel
+    */
+
+    if (
+        currentLevel ===
+        gameLevels.length - 1
+    ) {
+
+        finishGame();
+
+        return;
+
+    }
+
+
+    const nextAmount =
+        gameLevels[currentLevel + 1].amount;
+
+    document.getElementById(
+        "levelSuccessText"
+    ).textContent =
+        `Bien. Pero todavía quedan cosas que recordar. El siguiente nivel tiene ${nextAmount} símbolos.`;
+
+    showGameView(levelSuccess);
+
+}
+
+
+/* =========================================================
+   SIGUIENTE NIVEL
+========================================================= */
+
+nextLevelButton.addEventListener("click", () => {
+
+    currentLevel++;
+
+    startCurrentLevel();
+
+});
+
+
+/* =========================================================
+   REINICIAR
+========================================================= */
+
+retryGameButton.addEventListener("click", () => {
+
+    currentLevel = 0;
+
+    startCurrentLevel();
+
+});
+
+
+/* =========================================================
+   WAIT
+========================================================= */
+
+function wait(milliseconds) {
+
+    return new Promise(resolve => {
+
+        setTimeout(resolve, milliseconds);
+
+    });
+
+}
+
+
+/* =========================================================
+   FINAL
+========================================================= */
+
+async function finishGame() {
+
+    acceptingInput = false;
+
+    showGameView(gameFinal);
+
+
+    /*
+       Limpiar elementos
+    */
+
+    const finalSymbols =
+        document.getElementById("finalSymbols");
+
+    const finalMessage =
+        document.getElementById("finalMessage");
+
+    const passwordReveal =
+        document.getElementById("passwordReveal");
+
+    const revealedPassword =
+        document.getElementById("revealedPassword");
+
+    const finalParticles =
+        document.getElementById("finalParticles");
+
+
+    finalSymbols.innerHTML = "";
+
+    passwordReveal.classList.remove("show");
+
+    revealedPassword.innerHTML = "";
+
+    finalParticles.innerHTML = "";
+
+
+    /*
+       Crear partículas
+    */
+
+    createFinalParticles();
+
+
+    /*
+       Esperar a que aparezca
+       "LO RECUERDAS TODO"
+    */
+
+    await wait(1300);
+
+
+    /*
+       Mostrar los 15 símbolos
+       uno detrás de otro.
+    */
+
+    for (
+        let i = 0;
+        i < memorySymbols.length;
+        i++
+    ) {
+
+        const symbol =
+            document.createElement("span");
+
+        symbol.className =
+            "final-symbol";
+
+        symbol.textContent =
+            memorySymbols[i];
+
+        symbol.style.animationDelay =
+            `${i * 0.11}s`;
+
+        finalSymbols.appendChild(symbol);
+
+        await wait(110);
+
+    }
+
+
+    /*
+       Esperamos a que termine
+       la animación.
+    */
+
+    await wait(2500);
+
+
+    /*
+       Desaparece el mensaje inicial.
+    */
+
+    finalMessage.style.opacity = "0";
+
+
+    await wait(1300);
+
+
+    /*
+       Mostramos la contraseña.
+    */
+
+    passwordReveal.classList.add("show");
+
+
+    /*
+       Escribir contraseña letra por letra.
+    */
+
+    await revealPassword();
+
+}
+
+
+/* =========================================================
+   REVELAR CONTRASEÑA
+========================================================= */
+
+async function revealPassword() {
+
+    const revealedPassword =
+        document.getElementById("revealedPassword");
+
+    revealedPassword.innerHTML = "";
+
+
+    /*
+       Cada carácter aparece
+       individualmente.
+    */
+
+    for (
+        let i = 0;
+        i < FINAL_PASSWORD.length;
+        i++
+    ) {
+
+        const character =
+            document.createElement("span");
+
+        character.className =
+            "password-character";
+
+        character.textContent =
+            FINAL_PASSWORD[i];
+
+        character.style.animationDelay =
+            `${i * 0.12}s`;
+
+        revealedPassword.appendChild(character);
+
+        await wait(130);
+
+    }
+
+}
+
+
+/* =========================================================
+   PARTÍCULAS DEL FINAL
+========================================================= */
+
+function createFinalParticles() {
+
+    const container =
+        document.getElementById("finalParticles");
+
+
+    const particleSymbols = [
+        "·",
+        "✦",
+        "✧",
+        "•",
+        "⋆",
+        "✶"
+    ];
+
+
+    for (let i = 0; i < 35; i++) {
+
+        const particle =
+            document.createElement("span");
+
+        particle.className =
+            "final-particle";
+
+        particle.textContent =
+            particleSymbols[
+                Math.floor(
+                    Math.random() *
+                    particleSymbols.length
+                )
+            ];
+
+
+        particle.style.left =
+            `${Math.random() * 100}%`;
+
+        particle.style.top =
+            `${60 + Math.random() * 40}%`;
+
+        particle.style.animationDuration =
+            `${4 + Math.random() * 6}s`;
+
+        particle.style.animationDelay =
+            `${Math.random() * 3}s`;
+
+        container.appendChild(particle);
+
+    }
+
+}
+
+
+/* =========================================================
+   BOTÓN FINAL
+========================================================= */
+
+document
+    .getElementById("continueAfterGame")
+    .addEventListener("click", () => {
+
+        showScreen("home");
+
+    });
+
+
+/* =========================================================
+   SALIR DEL JUEGO
+========================================================= */
+
+document
+    .querySelector(".game-back")
+    .addEventListener("click", () => {
+
+        /*
+           Si sale del juego,
+           reiniciamos el progreso.
+        */
+
+        currentLevel = 0;
+        currentSequence = [];
+        playerSequence = [];
+        acceptingInput = false;
+
+        showGameView(gameIntro);
+
+        showScreen("home");
+
+    });
