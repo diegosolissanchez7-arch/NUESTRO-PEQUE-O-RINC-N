@@ -220,7 +220,7 @@ para mí tú ya has vencido.
 Y si pienso que me caigo
 ya me levanté contigo...`
 
-    }
+    },
 
     cuentagotas: {
 
