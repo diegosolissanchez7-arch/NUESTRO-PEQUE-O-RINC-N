@@ -233,7 +233,7 @@ ya me levanté contigo...`
 ***************
 Para regar mis lagrimales en invierno`
 
-    }
+    },
 
 };
 
