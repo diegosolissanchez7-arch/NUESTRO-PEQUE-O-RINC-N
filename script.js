@@ -344,7 +344,7 @@ Por un momento mi arma se detiene, el fuego cesa y la lluvia la frenamos con un 
    REFLEXIÓN PROTEGIDA — CUENTAGOTAS
 ========================================================= */
 
-const CUENTAGOTAS_PASSWORD = "CUENTALASGOTAS";
+const CUENTAGOTAS_PASSWORD = "RI3GAMISOJO5";
 
 const cuentagotasText =
 `Prométeme que siempre tendré un hueco entre tus brazos. Un lugar para hospedarme hasta que se detenga la tormenta.
