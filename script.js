@@ -2,22 +2,7 @@
    CONFIGURACIÓN GENERAL
 ========================================================= */
 
-
-/*
-   IMPORTANTE:
-
-   Esta contraseña es la del PORTAL inicial.
-   Si tu contraseña actual es otra, cambia solamente esta línea.
-*/
-
 const PORTAL_PASSWORD = "1CHL13B3DICH";
-
-
-/*
-   CONTRASEÑA FINAL DEL JUEGO
-
-   Se revela al completar los 6 niveles.
-*/
 
 const FINAL_PASSWORD = "3NTUSBR4Z0S";
 
@@ -55,10 +40,13 @@ function showScreen(id) {
         top: 0,
         behavior: "smooth"
     });
+
 }
 
 
-/* Botones data-section */
+/* =========================================================
+   BOTONES DE SECCIONES
+========================================================= */
 
 document.querySelectorAll("[data-section]").forEach(button => {
 
@@ -78,7 +66,9 @@ document.querySelectorAll("[data-section]").forEach(button => {
 });
 
 
-/* Botones volver al inicio */
+/* =========================================================
+   BOTONES VOLVER AL INICIO
+========================================================= */
 
 document.querySelectorAll("[data-home]").forEach(button => {
 
@@ -93,10 +83,17 @@ document.querySelectorAll("[data-home]").forEach(button => {
    PORTAL
 ========================================================= */
 
-const passwordForm = document.getElementById("passwordForm");
-const passwordInput = document.getElementById("passwordInput");
-const passwordMessage = document.getElementById("passwordMessage");
-const portalSunflower = document.getElementById("portalSunflower");
+const passwordForm =
+    document.getElementById("passwordForm");
+
+const passwordInput =
+    document.getElementById("passwordInput");
+
+const passwordMessage =
+    document.getElementById("passwordMessage");
+
+const portalSunflower =
+    document.getElementById("portalSunflower");
 
 
 const wrongMessages = [
@@ -110,50 +107,63 @@ const wrongMessages = [
 ];
 
 
-passwordForm.addEventListener("submit", function(event) {
+if (passwordForm) {
 
-    event.preventDefault();
+    passwordForm.addEventListener("submit", function(event) {
 
-    const enteredPassword = passwordInput.value.trim();
+        event.preventDefault();
 
-    if (enteredPassword === PORTAL_PASSWORD) {
+        const enteredPassword =
+            passwordInput.value.trim();
 
-        passwordMessage.textContent = "";
+        if (enteredPassword === PORTAL_PASSWORD) {
 
-        portalSunflower.classList.add("show");
-        portalSunflower.classList.add("unlock");
+            passwordMessage.textContent = "";
 
-        passwordInput.disabled = true;
+            if (portalSunflower) {
 
-        setTimeout(() => {
+                portalSunflower.classList.add("show");
+                portalSunflower.classList.add("unlock");
 
-            showScreen("home");
+            }
 
-            passwordInput.disabled = false;
+            passwordInput.disabled = true;
+
+            setTimeout(() => {
+
+                showScreen("home");
+
+                passwordInput.disabled = false;
+                passwordInput.value = "";
+
+            }, 2200);
+
+        } else {
+
+            const randomMessage =
+                wrongMessages[
+                    Math.floor(
+                        Math.random() *
+                        wrongMessages.length
+                    )
+                ];
+
+            passwordMessage.textContent =
+                randomMessage;
+
             passwordInput.value = "";
 
-        }, 2200);
+            passwordInput.focus();
 
-    } else {
+        }
 
-        const randomMessage =
-            wrongMessages[
-                Math.floor(Math.random() * wrongMessages.length)
-            ];
+    });
 
-        passwordMessage.textContent = randomMessage;
-
-        passwordInput.value = "";
-
-        passwordInput.focus();
-
-    }
-
-});
+}
 
 
 /* =========================================================
-   CONTENIDO DE FILTRACIONES
+   FILTRACIONES
 ========================================================= */
 
 const leakContent = {
@@ -222,6 +232,7 @@ ya me levanté contigo...`
 
     },
 
+
     cuentagotas: {
 
         number: "04",
@@ -233,7 +244,7 @@ ya me levanté contigo...`
 ***************
 Para regar mis lagrimales en invierno`
 
-    },
+    }
 
 };
 
@@ -242,59 +253,70 @@ Para regar mis lagrimales en invierno`
    ABRIR FILTRACIONES
 ========================================================= */
 
-document.querySelectorAll(".leak-card[data-content]").forEach(card => {
+document
+    .querySelectorAll(".leak-card[data-content]")
+    .forEach(card => {
 
-    card.addEventListener("click", () => {
+        card.addEventListener("click", () => {
 
-        const key = card.dataset.content;
+            const key =
+                card.dataset.content;
 
-        const content = leakContent[key];
+            const content =
+                leakContent[key];
 
-        if (!content) return;
+            if (!content) return;
 
-        openModal(
-            content.number,
-            content.title,
-            content.content
-        );
+            openModal(
+                content.number,
+                content.title,
+                content.content
+            );
+
+        });
 
     });
-
-});
 
 
 /* =========================================================
    FILTRACIONES BLOQUEADAS
 ========================================================= */
 
-document.querySelectorAll(".locked-card").forEach(card => {
+document
+    .querySelectorAll(".locked-card")
+    .forEach(card => {
 
-    card.addEventListener("click", () => {
+        card.addEventListener("click", () => {
 
-        const messages = [
-            "Mmm... por aquí no es.",
-            "Casi... pero no.",
-            "¿Seguro que esa era la clave?",
-            "No parece que esto se abra así...",
-            "UPS, lo siento, no tienes acceso todavía por aquí."
-        ];
+            const messages = [
+                "Mmm... por aquí no es.",
+                "Casi... pero no.",
+                "¿Seguro que esa era la clave?",
+                "No parece que esto se abra así...",
+                "UPS, lo siento, no tienes acceso todavía por aquí."
+            ];
 
-        const message =
-            messages[Math.floor(Math.random() * messages.length)];
+            const message =
+                messages[
+                    Math.floor(
+                        Math.random() *
+                        messages.length
+                    )
+                ];
 
-        openModal(
-            "🔒",
-            "BLOQUEADO",
-            message
-        );
+            openModal(
+                "🔒",
+                "BLOQUEADO",
+                message
+            );
+
+        });
 
     });
 
-});
-
 
 /* =========================================================
-   REFLEXIONES
+   REFLEXIONES NORMALES
 ========================================================= */
 
 const reflections = {
@@ -340,169 +362,312 @@ Por un momento mi arma se detiene, el fuego cesa y la lluvia la frenamos con un 
 
 };
 
+
 /* =========================================================
-   REFLEXIÓN PROTEGIDA — CUENTAGOTAS
+   REFLEXIONES PROTEGIDAS
 ========================================================= */
 
-const CUENTAGOTAS_PASSWORD = "RI3GAMISOJO5";
+
+/*
+   CUENTAGOTAS
+*/
+
+const CUENTAGOTAS_PASSWORD =
+    "R13GAM1SOJO5";
 
 const cuentagotasText =
-`Prométeme que siempre tendré un hueco entre tus brazos. Un lugar para hospedarme hasta que se detenga la tormenta.
+`Prométeme que
+siempre tendré un hueco entre tus brazos. Un lugar para hospedarme
+hasta que se detenga la tormenta. 
 
-Protégeme de mi mismo, y acaríciame para que recuerde quién soy y dónde vivo. Pues contigo se me olvida todo, mi nombre, mi voz y hasta dónde habito.
+
+Protégeme de mi
+mismo, y acaríciame para que recuerde quién soy y dónde vivo. Pues
+contigo se me olvida todo, mi nombre, mi voz y hasta dónde habito. 
+
 
 Contigo vuelvo a ser de vidrio, aunque si me cuidas aparentaré ser fuerte durante un rato. Pero sé de sobra que mi armadura es frágil, y que es cuestión de tiempo que se deshaga entre tus brazos; para volver a rehacerse más fuerte e intentar que la lluvia no la deje hecha pedazos.`;
 
 
+/*
+   GUERRERA
+*/
+
+const GUERRERA_PASSWORD =
+    "GUERRERA";
+
+const guerreraReflectionText =
+`Como buen guerrero, para ser sincero, intento aprender a lidiar las peores batallas observando a otros luchadores. Porqué sí, el espíritu del guerrero no se forma solo combatiendo, se construye día a día observando y analizando el comportamiento de otros expertos en la batalla.  
+
+En mi caso, tengo
+varios ejemplos a seguir en mi vida de los que intento formarme día
+a día para aprender algo nuevo siempre, pero si tuviera que hablar
+de lo que me has enseñado tú, recordaría sin duda la fuerza que
+tienes para soportar el dolor (tanto físico como mental). Nunca me
+olvidaré de cuando se te salió el hombro por segunda vez… Pues
+lejos de llorar o lamentarte por todo lo que se te venía, saliste
+del campo riéndote con esa felicidad que tanto te caracteriza.
+Tampoco olvidaría las infinitas guerras mentales que tienes contigo
+misma con tu imagen. Ha sido bastante pesado, lo sé, pero
+conseguirás ganarle la batalla a los espejos! Lo sé! Eres la mejor!
+
+Bueno, dejando eso atrás. Yo también soy muy débil, en muchos aspectos, sobre todo en lo que se refiere al tema mental. Desde pequeño le he dado importancia a cosas que, con el tiempo, he acabado comprendiendo que no la tienen. Por eso me gustaría pedirte una cosa: Ya que ya te he dicho como se forman los guerreros, necesito que poco a poco nos convirtamos cada uno en el ejemplo a seguir del otro. Solo así podremos solventar nuestros problemas, aprendiendo y analizando cómo el otro los sortea para salir de todo lo que nos angustia. Necesito que crezcamos juntos, física y mentalmente.`;
+
+
 /* =========================================================
-   ABRIR CUENTAGOTAS CON CONTRASEÑA
+   FUNCIÓN PARA ABRIR REFLEXIÓN PROTEGIDA
 ========================================================= */
 
-document
-    .querySelector(".locked-reflection")
-    .addEventListener("click", () => {
+function openProtectedReflection(
+    passwordCorrect,
+    number,
+    title,
+    content
+) {
 
-        const password = prompt(
+    const password =
+        prompt(
             "Esta reflexión está protegida.\n\nIntroduce la contraseña:"
         );
 
-        if (password === null) return;
+    if (password === null) return;
 
-        if (password.trim() === CUENTAGOTAS_PASSWORD) {
+    if (
+        password.trim() ===
+        passwordCorrect
+    ) {
 
-            openModal(
+        openModal(
+            number,
+            title,
+            content
+        );
+
+    } else {
+
+        openModal(
+            "🔒",
+            "ACCESO DENEGADO",
+            "Esa no es la palabra que estás buscando."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CLICK CUENTAGOTAS
+========================================================= */
+
+const lockedCuentagotas =
+    document.querySelector(
+        ".locked-reflection[data-locked-reflection='cuentagotas']"
+    );
+
+
+if (lockedCuentagotas) {
+
+    lockedCuentagotas.addEventListener(
+        "click",
+        () => {
+
+            openProtectedReflection(
+                CUENTAGOTAS_PASSWORD,
                 "04",
                 "CUENTAGOTAS",
                 cuentagotasText
             );
 
-        } else {
-
-            openModal(
-                "🔒",
-                "ACCESO DENEGADO",
-                "Esa no es la palabra que estás buscando."
-            );
-
         }
+    );
 
-    });
-
+}
 
 
 /* =========================================================
-   ABRIR REFLEXIONES
+   CLICK GUERRERA
 ========================================================= */
 
-document.querySelectorAll(".reflection-item").forEach(item => {
+const lockedGuerrera =
+    document.querySelector(
+        ".locked-reflection[data-locked-reflection='guerrera']"
+    );
 
-    item.addEventListener("click", () => {
 
-        const key = item.dataset.reflection;
+if (lockedGuerrera) {
 
-        const content = reflections[key];
+    lockedGuerrera.addEventListener(
+        "click",
+        () => {
 
-        if (!content) return;
+            openProtectedReflection(
+                GUERRERA_PASSWORD,
+                "05",
+                "GUERRERA",
+                guerreraReflectionText
+            );
 
-        openModal(
-            content.number,
-            content.title,
-            content.content
-        );
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ABRIR REFLEXIONES NORMALES
+========================================================= */
+
+document
+    .querySelectorAll(
+        ".reflection-item[data-reflection]"
+    )
+    .forEach(item => {
+
+        item.addEventListener("click", () => {
+
+            const key =
+                item.dataset.reflection;
+
+            const content =
+                reflections[key];
+
+            if (!content) return;
+
+            openModal(
+                content.number,
+                content.title,
+                content.content
+            );
+
+        });
 
     });
-
-});
 
 
 /* =========================================================
    MODAL
 ========================================================= */
 
-function openModal(number, title, content) {
+function openModal(
+    number,
+    title,
+    content
+) {
 
-    modalNumber.textContent = number;
-    modalTitle.textContent = title;
-    modalContent.textContent = content;
+    if (modalNumber) {
+        modalNumber.textContent =
+            number;
+    }
 
-    modal.classList.add("active");
+    if (modalTitle) {
+        modalTitle.textContent =
+            title;
+    }
+
+    if (modalContent) {
+        modalContent.textContent =
+            content;
+    }
+
+    if (modal) {
+        modal.classList.add("active");
+    }
 
 }
 
 
 function closeContentModal() {
 
-    modal.classList.remove("active");
+    if (modal) {
+        modal.classList.remove("active");
+    }
 
 }
 
 
-closeModal.addEventListener(
-    "click",
-    closeContentModal
-);
+if (closeModal) {
+
+    closeModal.addEventListener(
+        "click",
+        closeContentModal
+    );
+
+}
 
 
-document.querySelector(".modal-background").addEventListener(
-    "click",
-    closeContentModal
-);
+const modalBackground =
+    document.querySelector(
+        ".modal-background"
+    );
 
 
-document.addEventListener("keydown", event => {
+if (modalBackground) {
 
-    if (event.key === "Escape") {
-        closeContentModal();
+    modalBackground.addEventListener(
+        "click",
+        closeContentModal
+    );
+
+}
+
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (event.key === "Escape") {
+            closeContentModal();
+        }
+
     }
-
-});
+);
 
 
 /* =========================================================
    CONTENIDO BLOQUEADO DEL REGALO
 ========================================================= */
 
-document.querySelectorAll(".locked-content").forEach(item => {
+document
+    .querySelectorAll(".locked-content")
+    .forEach(item => {
 
-    item.addEventListener("click", () => {
+        item.addEventListener(
+            "click",
+            () => {
 
-        const type = item.dataset.locked;
+                const type =
+                    item.dataset.locked;
 
-        if (type === "video") {
+                if (type === "video") {
 
-            openModal(
-                "🔒",
-                "VÍDEO",
-                "Mmm... creo que todavía no tienes acceso a esto."
-            );
+                    openModal(
+                        "🔒",
+                        "VÍDEO",
+                        "Mmm... creo que todavía no tienes acceso a esto."
+                    );
 
-        }
+                }
 
-        if (type === "book") {
+                if (type === "book") {
 
-            openModal(
-                "🔒",
-                "AMOR EN RIMAS II",
-                "UPS... parece que todavía no puedes abrirlo."
-            );
+                    openModal(
+                        "🔒",
+                        "AMOR EN RIMAS II",
+                        "UPS... parece que todavía no puedes abrirlo."
+                    );
 
-        }
+                }
+
+            }
+        );
 
     });
 
-});
-
 
 /* =========================================================
-   =========================================================
-                      JUEGO DE MEMORIA
-   =========================================================
+   JUEGO DE MEMORIA
 ========================================================= */
-
-
-/*
-   LOS 15 SÍMBOLOS
-*/
 
 const memorySymbols = [
     "🐿️",
@@ -535,69 +700,121 @@ const memorySymbols = [
 */
 
 const gameLevels = [
-    {
-        amount: 3,
-        roman: "I"
-    },
+
     {
         amount: 4,
-        roman: "II"
+        roman: "I"
     },
-    {
-        amount: 5,
-        roman: "III"
-    },
+
     {
         amount: 6,
+        roman: "II"
+    },
+
+    {
+        amount: 8,
+        roman: "III"
+    },
+
+    {
+        amount: 10,
         roman: "IV"
     },
-    {
-        amount: 7,
-        roman: "V"
-    }
-];
 
+    {
+        amount: 12,
+        roman: "V"
+    },
+
+    {
+        amount: 15,
+        roman: "VI"
+    }
+
+];
 
 
 /* =========================================================
    ELEMENTOS DEL JUEGO
 ========================================================= */
 
-const gameIntro = document.getElementById("gameIntro");
-const gameLevel = document.getElementById("gameLevel");
-const levelSuccess = document.getElementById("levelSuccess");
-const gameFailure = document.getElementById("gameFailure");
-const gameFinal = document.getElementById("gameFinal");
+const gameIntro =
+    document.getElementById(
+        "gameIntro"
+    );
+
+const gameLevel =
+    document.getElementById(
+        "gameLevel"
+    );
+
+const levelSuccess =
+    document.getElementById(
+        "levelSuccess"
+    );
+
+const gameFailure =
+    document.getElementById(
+        "gameFailure"
+    );
+
+const gameFinal =
+    document.getElementById(
+        "gameFinal"
+    );
+
 
 const startGameButton =
-    document.getElementById("startGameButton");
+    document.getElementById(
+        "startGameButton"
+    );
 
 const nextLevelButton =
-    document.getElementById("nextLevelButton");
+    document.getElementById(
+        "nextLevelButton"
+    );
 
 const retryGameButton =
-    document.getElementById("retryGameButton");
+    document.getElementById(
+        "retryGameButton"
+    );
+
 
 const sequenceArea =
-    document.getElementById("sequenceArea");
+    document.getElementById(
+        "sequenceArea"
+    );
 
 const gameGrid =
-    document.getElementById("gameGrid");
+    document.getElementById(
+        "gameGrid"
+    );
+
 
 const levelNumber =
-    document.getElementById("levelNumber");
+    document.getElementById(
+        "levelNumber"
+    );
 
 const levelProgress =
-    document.getElementById("levelProgress");
+    document.getElementById(
+        "levelProgress"
+    );
 
 const levelTitle =
-    document.getElementById("levelTitle");
+    document.getElementById(
+        "levelTitle"
+    );
 
 const levelInstruction =
-    document.getElementById("levelInstruction");
+    document.getElementById(
+        "levelInstruction"
+    );
 
 const gameFeedback =
-    document.getElementById("gameFeedback");
+    document.getElementById(
+        "gameFeedback"
+    );
 
 
 /* =========================================================
@@ -619,6 +836,8 @@ let acceptingInput = false;
 
 function showGameView(view) {
 
+    if (!view) return;
+
     [
         gameIntro,
         gameLevel,
@@ -627,7 +846,11 @@ function showGameView(view) {
         gameFinal
     ].forEach(element => {
 
-        element.classList.remove("active");
+        if (element) {
+            element.classList.remove(
+                "active"
+            );
+        }
 
     });
 
@@ -637,16 +860,23 @@ function showGameView(view) {
 
 
 /* =========================================================
-   EMPEZAR
+   EMPEZAR JUEGO
 ========================================================= */
 
-startGameButton.addEventListener("click", () => {
+if (startGameButton) {
 
-    currentLevel = 0;
+    startGameButton.addEventListener(
+        "click",
+        () => {
 
-    startCurrentLevel();
+            currentLevel = 0;
 
-});
+            startCurrentLevel();
+
+        }
+    );
+
+}
 
 
 /* =========================================================
@@ -655,11 +885,15 @@ startGameButton.addEventListener("click", () => {
 
 function generateSequence(amount) {
 
-    const shuffled = [...memorySymbols];
+    const shuffled =
+        [...memorySymbols];
 
     shuffleArray(shuffled);
 
-    return shuffled.slice(0, amount);
+    return shuffled.slice(
+        0,
+        amount
+    );
 
 }
 
@@ -677,7 +911,10 @@ function shuffleArray(array) {
     ) {
 
         const j =
-            Math.floor(Math.random() * (i + 1));
+            Math.floor(
+                Math.random() *
+                (i + 1)
+            );
 
         [
             array[i],
@@ -701,38 +938,80 @@ function shuffleArray(array) {
 
 function startCurrentLevel() {
 
-    const level = gameLevels[currentLevel];
+    const level =
+        gameLevels[currentLevel];
+
+    if (!level) return;
 
     currentSequence =
-        generateSequence(level.amount);
+        generateSequence(
+            level.amount
+        );
 
     playerSequence = [];
 
     acceptingInput = false;
 
-    showGameView(gameLevel);
+    showGameView(
+        gameLevel
+    );
 
-    levelNumber.textContent =
-        `NIVEL ${level.roman}`;
 
-    levelProgress.textContent =
-        `${currentLevel + 1} / ${gameLevels.length}`;
+    if (levelNumber) {
 
-    levelTitle.textContent =
-        "RECUERDA";
+        levelNumber.textContent =
+            `NIVEL ${level.roman}`;
 
-    levelInstruction.textContent =
-        "Observa bien...";
+    }
 
-    gameFeedback.textContent = "";
 
-    sequenceArea.innerHTML = "";
+    if (levelProgress) {
 
-    gameGrid.innerHTML = "";
+        levelProgress.textContent =
+            `${currentLevel + 1} / ${gameLevels.length}`;
 
-    /*
-       Primero enseñamos la secuencia.
-    */
+    }
+
+
+    if (levelTitle) {
+
+        levelTitle.textContent =
+            "RECUERDA";
+
+    }
+
+
+    if (levelInstruction) {
+
+        levelInstruction.textContent =
+            "Observa bien...";
+
+    }
+
+
+    if (gameFeedback) {
+
+        gameFeedback.textContent =
+            "";
+
+    }
+
+
+    if (sequenceArea) {
+
+        sequenceArea.innerHTML =
+            "";
+
+    }
+
+
+    if (gameGrid) {
+
+        gameGrid.innerHTML =
+            "";
+
+    }
+
 
     showSequence();
 
@@ -745,13 +1024,13 @@ function startCurrentLevel() {
 
 async function showSequence() {
 
-    sequenceArea.innerHTML = "";
+    if (!sequenceArea) return;
 
-    /*
-       Tiempo inicial
-    */
+    sequenceArea.innerHTML =
+        "";
 
     await wait(600);
+
 
     for (
         let i = 0;
@@ -760,9 +1039,12 @@ async function showSequence() {
     ) {
 
         const symbol =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
-        symbol.className = "sequence-symbol";
+        symbol.className =
+            "sequence-symbol";
 
         symbol.textContent =
             currentSequence[i];
@@ -770,32 +1052,37 @@ async function showSequence() {
         symbol.style.animationDelay =
             `${i * 0.08}s`;
 
-        sequenceArea.appendChild(symbol);
+        sequenceArea.appendChild(
+            symbol
+        );
 
         await wait(330);
 
     }
 
 
-    /*
-       Dejamos la secuencia visible
-       un pequeño momento.
-    */
-
     await wait(1300);
 
 
-    /*
-       La borramos.
-    */
+    sequenceArea.innerHTML =
+        "";
 
-    sequenceArea.innerHTML = "";
 
-    levelTitle.textContent =
-        "AHORA TÚ";
+    if (levelTitle) {
 
-    levelInstruction.textContent =
-        "Repite la secuencia en el mismo orden.";
+        levelTitle.textContent =
+            "AHORA TÚ";
+
+    }
+
+
+    if (levelInstruction) {
+
+        levelInstruction.textContent =
+            "Repite la secuencia en el mismo orden.";
+
+    }
+
 
     createMemoryGrid();
 
@@ -808,38 +1095,52 @@ async function showSequence() {
 
 function createMemoryGrid() {
 
-    gameGrid.innerHTML = "";
+    if (!gameGrid) return;
 
-    /*
-       Siempre aparecen los 15 símbolos,
-       mezclados.
-    */
+    gameGrid.innerHTML =
+        "";
+
 
     const shuffledSymbols =
         [...memorySymbols];
 
-    shuffleArray(shuffledSymbols);
+    shuffleArray(
+        shuffledSymbols
+    );
 
 
-    shuffledSymbols.forEach(symbol => {
+    shuffledSymbols.forEach(
+        symbol => {
 
-        const card =
-            document.createElement("button");
+            const card =
+                document.createElement(
+                    "button"
+                );
 
-        card.className = "memory-card";
+            card.className =
+                "memory-card";
 
-        card.textContent = symbol;
+            card.textContent =
+                symbol;
 
-        card.dataset.symbol = symbol;
+            card.dataset.symbol =
+                symbol;
 
-        card.addEventListener(
-            "click",
-            () => handleMemoryClick(card, symbol)
-        );
+            card.addEventListener(
+                "click",
+                () =>
+                    handleMemoryClick(
+                        card,
+                        symbol
+                    )
+            );
 
-        gameGrid.appendChild(card);
+            gameGrid.appendChild(
+                card
+            );
 
-    });
+        }
+    );
 
 
     acceptingInput = true;
@@ -851,60 +1152,80 @@ function createMemoryGrid() {
    CLICK DEL JUGADOR
 ========================================================= */
 
-function handleMemoryClick(card, symbol) {
+function handleMemoryClick(
+    card,
+    symbol
+) {
 
     if (!acceptingInput) return;
 
-    /*
-       Evitar pulsar dos veces
-       el mismo símbolo.
-    */
 
-    if (card.classList.contains("selected")) {
+    if (
+        card.classList.contains(
+            "selected"
+        )
+    ) {
+
         return;
+
     }
 
 
     const expectedSymbol =
-        currentSequence[playerSequence.length];
+        currentSequence[
+            playerSequence.length
+        ];
 
 
-    /*
-       ERROR
-    */
+    /* ERROR */
 
-    if (symbol !== expectedSymbol) {
+    if (
+        symbol !== expectedSymbol
+    ) {
 
         acceptingInput = false;
 
-        card.classList.add("wrong");
+        card.classList.add(
+            "wrong"
+        );
 
-        gameFeedback.textContent =
-            "Ese no era...";
 
-        setTimeout(() => {
+        if (gameFeedback) {
 
-            showGameView(gameFailure);
+            gameFeedback.textContent =
+                "Ese no era...";
 
-        }, 650);
+        }
+
+
+        setTimeout(
+            () => {
+
+                showGameView(
+                    gameFailure
+                );
+
+            },
+            650
+        );
 
         return;
 
     }
 
 
-    /*
-       CORRECTO
-    */
+    /* CORRECTO */
 
-    playerSequence.push(symbol);
+    playerSequence.push(
+        symbol
+    );
 
-    card.classList.add("selected");
+    card.classList.add(
+        "selected"
+    );
 
 
-    /*
-       ¿Ha terminado el nivel?
-    */
+    /* NIVEL COMPLETADO */
 
     if (
         playerSequence.length ===
@@ -913,11 +1234,14 @@ function handleMemoryClick(card, symbol) {
 
         acceptingInput = false;
 
-        setTimeout(() => {
+        setTimeout(
+            () => {
 
-            levelCompleted();
+                levelCompleted();
 
-        }, 500);
+            },
+            500
+        );
 
     }
 
@@ -929,10 +1253,6 @@ function handleMemoryClick(card, symbol) {
 ========================================================= */
 
 function levelCompleted() {
-
-    /*
-       Último nivel
-    */
 
     if (
         currentLevel ===
@@ -947,14 +1267,28 @@ function levelCompleted() {
 
 
     const nextAmount =
-        gameLevels[currentLevel + 1].amount;
+        gameLevels[
+            currentLevel + 1
+        ].amount;
 
-    document.getElementById(
-        "levelSuccessText"
-    ).textContent =
-        `Bien. Pero todavía quedan cosas que recordar. El siguiente nivel tiene ${nextAmount} símbolos.`;
 
-    showGameView(levelSuccess);
+    const successText =
+        document.getElementById(
+            "levelSuccessText"
+        );
+
+
+    if (successText) {
+
+        successText.textContent =
+            `Bien. Pero todavía quedan cosas que recordar. El siguiente nivel tiene ${nextAmount} símbolos.`;
+
+    }
+
+
+    showGameView(
+        levelSuccess
+    );
 
 }
 
@@ -963,26 +1297,40 @@ function levelCompleted() {
    SIGUIENTE NIVEL
 ========================================================= */
 
-nextLevelButton.addEventListener("click", () => {
+if (nextLevelButton) {
 
-    currentLevel++;
+    nextLevelButton.addEventListener(
+        "click",
+        () => {
 
-    startCurrentLevel();
+            currentLevel++;
 
-});
+            startCurrentLevel();
+
+        }
+    );
+
+}
 
 
 /* =========================================================
    REINICIAR
 ========================================================= */
 
-retryGameButton.addEventListener("click", () => {
+if (retryGameButton) {
 
-    currentLevel = 0;
+    retryGameButton.addEventListener(
+        "click",
+        () => {
 
-    startCurrentLevel();
+            currentLevel = 0;
 
-});
+            startCurrentLevel();
+
+        }
+    );
+
+}
 
 
 /* =========================================================
@@ -991,128 +1339,153 @@ retryGameButton.addEventListener("click", () => {
 
 function wait(milliseconds) {
 
-    return new Promise(resolve => {
+    return new Promise(
+        resolve => {
 
-        setTimeout(resolve, milliseconds);
+            setTimeout(
+                resolve,
+                milliseconds
+            );
 
-    });
+        }
+    );
 
 }
 
 
 /* =========================================================
-   FINAL
+   FINAL DEL JUEGO
 ========================================================= */
 
 async function finishGame() {
 
     acceptingInput = false;
 
-    showGameView(gameFinal);
+    showGameView(
+        gameFinal
+    );
 
-
-    /*
-       Limpiar elementos
-    */
 
     const finalSymbols =
-        document.getElementById("finalSymbols");
+        document.getElementById(
+            "finalSymbols"
+        );
 
     const finalMessage =
-        document.getElementById("finalMessage");
+        document.getElementById(
+            "finalMessage"
+        );
 
     const passwordReveal =
-        document.getElementById("passwordReveal");
+        document.getElementById(
+            "passwordReveal"
+        );
 
     const revealedPassword =
-        document.getElementById("revealedPassword");
+        document.getElementById(
+            "revealedPassword"
+        );
 
     const finalParticles =
-        document.getElementById("finalParticles");
+        document.getElementById(
+            "finalParticles"
+        );
 
 
-    finalSymbols.innerHTML = "";
+    if (finalSymbols) {
 
-    passwordReveal.classList.remove("show");
-
-    revealedPassword.innerHTML = "";
-
-    finalParticles.innerHTML = "";
-
-
-    /*
-       Crear partículas
-    */
-
-    createFinalParticles();
-
-
-    /*
-       Esperar a que aparezca
-       "LO RECUERDAS TODO"
-    */
-
-    await wait(1300);
-
-
-    /*
-       Mostrar los 15 símbolos
-       uno detrás de otro.
-    */
-
-    for (
-        let i = 0;
-        i < memorySymbols.length;
-        i++
-    ) {
-
-        const symbol =
-            document.createElement("span");
-
-        symbol.className =
-            "final-symbol";
-
-        symbol.textContent =
-            memorySymbols[i];
-
-        symbol.style.animationDelay =
-            `${i * 0.11}s`;
-
-        finalSymbols.appendChild(symbol);
-
-        await wait(110);
+        finalSymbols.innerHTML =
+            "";
 
     }
 
 
-    /*
-       Esperamos a que termine
-       la animación.
-    */
+    if (passwordReveal) {
 
-    await wait(2500);
+        passwordReveal.classList.remove(
+            "show"
+        );
+
+    }
 
 
-    /*
-       Desaparece el mensaje inicial.
-    */
+    if (revealedPassword) {
 
-    finalMessage.style.opacity = "0";
+        revealedPassword.innerHTML =
+            "";
+
+    }
+
+
+    if (finalParticles) {
+
+        finalParticles.innerHTML =
+            "";
+
+    }
+
+
+    createFinalParticles();
 
 
     await wait(1300);
 
 
-    /*
-       Mostramos la contraseña.
-    */
+    if (finalSymbols) {
 
-    passwordReveal.classList.add("show");
+        for (
+            let i = 0;
+            i < memorySymbols.length;
+            i++
+        ) {
+
+            const symbol =
+                document.createElement(
+                    "span"
+                );
+
+            symbol.className =
+                "final-symbol";
+
+            symbol.textContent =
+                memorySymbols[i];
+
+            symbol.style.animationDelay =
+                `${i * 0.11}s`;
+
+            finalSymbols.appendChild(
+                symbol
+            );
+
+            await wait(110);
+
+        }
+
+    }
 
 
-    /*
-       Escribir contraseña letra por letra.
-    */
+    await wait(2500);
+
+
+    if (finalMessage) {
+
+        finalMessage.style.opacity =
+            "0";
+
+    }
+
+
+    await wait(1300);
+
+
+    if (passwordReveal) {
+
+        passwordReveal.classList.add(
+            "show"
+        );
+
+    }
+
 
     await revealPassword();
 
@@ -1126,15 +1499,15 @@ async function finishGame() {
 async function revealPassword() {
 
     const revealedPassword =
-        document.getElementById("revealedPassword");
+        document.getElementById(
+            "revealedPassword"
+        );
 
-    revealedPassword.innerHTML = "";
+    if (!revealedPassword) return;
 
+    revealedPassword.innerHTML =
+        "";
 
-    /*
-       Cada carácter aparece
-       individualmente.
-    */
 
     for (
         let i = 0;
@@ -1143,7 +1516,9 @@ async function revealPassword() {
     ) {
 
         const character =
-            document.createElement("span");
+            document.createElement(
+                "span"
+            );
 
         character.className =
             "password-character";
@@ -1154,7 +1529,9 @@ async function revealPassword() {
         character.style.animationDelay =
             `${i * 0.12}s`;
 
-        revealedPassword.appendChild(character);
+        revealedPassword.appendChild(
+            character
+        );
 
         await wait(130);
 
@@ -1170,7 +1547,11 @@ async function revealPassword() {
 function createFinalParticles() {
 
     const container =
-        document.getElementById("finalParticles");
+        document.getElementById(
+            "finalParticles"
+        );
+
+    if (!container) return;
 
 
     const particleSymbols = [
@@ -1183,10 +1564,16 @@ function createFinalParticles() {
     ];
 
 
-    for (let i = 0; i < 35; i++) {
+    for (
+        let i = 0;
+        i < 35;
+        i++
+    ) {
 
         const particle =
-            document.createElement("span");
+            document.createElement(
+                "span"
+            );
 
         particle.className =
             "final-particle";
@@ -1212,7 +1599,9 @@ function createFinalParticles() {
         particle.style.animationDelay =
             `${Math.random() * 3}s`;
 
-        container.appendChild(particle);
+        container.appendChild(
+            particle
+        );
 
     }
 
@@ -1223,35 +1612,59 @@ function createFinalParticles() {
    BOTÓN FINAL
 ========================================================= */
 
-document
-    .getElementById("continueAfterGame")
-    .addEventListener("click", () => {
+const continueAfterGame =
+    document.getElementById(
+        "continueAfterGame"
+    );
 
-        showScreen("home");
 
-    });
+if (continueAfterGame) {
+
+    continueAfterGame.addEventListener(
+        "click",
+        () => {
+
+            showScreen("home");
+
+        }
+    );
+
+}
 
 
 /* =========================================================
    SALIR DEL JUEGO
 ========================================================= */
 
-document
-    .querySelector(".game-back")
-    .addEventListener("click", () => {
+const gameBack =
+    document.querySelector(
+        ".game-back"
+    );
 
-        /*
-           Si sale del juego,
-           reiniciamos el progreso.
-        */
 
-        currentLevel = 0;
-        currentSequence = [];
-        playerSequence = [];
-        acceptingInput = false;
+if (gameBack) {
 
-        showGameView(gameIntro);
+    gameBack.addEventListener(
+        "click",
+        () => {
 
-        showScreen("home");
+            currentLevel = 0;
 
-    });
+            currentSequence = [];
+
+            playerSequence = [];
+
+            acceptingInput = false;
+
+            showGameView(
+                gameIntro
+            );
+
+            showScreen(
+                "home"
+            );
+
+        }
+    );
+
+}
