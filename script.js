@@ -1,15 +1,9 @@
-/* =========================================================
-   CONFIGURACIÓN GENERAL
-========================================================= */
-
 const PORTAL_PASSWORD = "1CHL13B3DICH";
-
 const FINAL_PASSWORD = "3NTUSBR4Z0S";
 
-
-/* =========================================================
-   ELEMENTOS GENERALES
-========================================================= */
+const CUENTAGOTAS_PASSWORD = "R13GAM1SOJO5";
+const GUERRERA_PASSWORD = "GUERRERA";
+const ACOSTADO_PASSWORD = "3NTUSBR4Z0S";
 
 const screens = document.querySelectorAll(".screen");
 
@@ -19,10 +13,6 @@ const modalContent = document.getElementById("modalContent");
 const modalNumber = document.getElementById("modalNumber");
 const closeModal = document.getElementById("closeModal");
 
-
-/* =========================================================
-   CAMBIO DE PANTALLAS
-========================================================= */
 
 function showScreen(id) {
 
@@ -40,13 +30,8 @@ function showScreen(id) {
         top: 0,
         behavior: "smooth"
     });
-
 }
 
-
-/* =========================================================
-   BOTONES DE SECCIONES
-========================================================= */
 
 document.querySelectorAll("[data-section]").forEach(button => {
 
@@ -54,21 +39,14 @@ document.querySelectorAll("[data-section]").forEach(button => {
 
         const section = button.dataset.section;
 
-        if (section === "home") {
-            showScreen("home");
-            return;
+        if (section) {
+            showScreen(section);
         }
-
-        showScreen(section);
 
     });
 
 });
 
-
-/* =========================================================
-   BOTONES VOLVER AL INICIO
-========================================================= */
 
 document.querySelectorAll("[data-home]").forEach(button => {
 
@@ -78,10 +56,6 @@ document.querySelectorAll("[data-home]").forEach(button => {
 
 });
 
-
-/* =========================================================
-   PORTAL
-========================================================= */
 
 const passwordForm =
     document.getElementById("passwordForm");
@@ -102,14 +76,14 @@ const wrongMessages = [
     "¿Seguro que esa era la clave?",
     "No parece que esto se abra así...",
     "UPS, lo siento, no tienes acceso todavía por aquí.",
-    "Mmm... creo que tendrás que esperar.",
+    "Mmm... Creo que tendrás que esperar.",
     "VAYA, parece que todavía no puedes."
 ];
 
 
 if (passwordForm) {
 
-    passwordForm.addEventListener("submit", function(event) {
+    passwordForm.addEventListener("submit", event => {
 
         event.preventDefault();
 
@@ -121,10 +95,8 @@ if (passwordForm) {
             passwordMessage.textContent = "";
 
             if (portalSunflower) {
-
                 portalSunflower.classList.add("show");
                 portalSunflower.classList.add("unlock");
-
             }
 
             passwordInput.disabled = true;
@@ -140,7 +112,7 @@ if (passwordForm) {
 
         } else {
 
-            const randomMessage =
+            passwordMessage.textContent =
                 wrongMessages[
                     Math.floor(
                         Math.random() *
@@ -148,11 +120,7 @@ if (passwordForm) {
                     )
                 ];
 
-            passwordMessage.textContent =
-                randomMessage;
-
             passwordInput.value = "";
-
             passwordInput.focus();
 
         }
@@ -161,10 +129,6 @@ if (passwordForm) {
 
 }
 
-
-/* =========================================================
-   FILTRACIONES
-========================================================= */
 
 const leakContent = {
 
@@ -202,16 +166,16 @@ Yo la encuentro dentro de ti.`
 `Ojalá un mundo sin espejos
 y sin muestras superficiales
 que no permita que los reflejos
-se apoderen de las verdades 
+se apoderen de las verdades
 
-Injustas las imágenes 
+Injustas las imágenes
 Si solo enseñan una superficie
-Que artificiales los márgenes 
-Yo aprecio tus raíces 
+Que artificiales los márgenes
+Yo aprecio tus raíces
 
 Mírate dentro de mi
 Y obsérvate más orgullosa
-Quizá sea muy idealista 
+Quizá sea muy idealista
 Pero menos artificiosa`
 
     },
@@ -225,7 +189,7 @@ Pero menos artificiosa`
 
         content:
 `Y si piensas que te caes,
-para mí tú ya has vencido.
+para mí tú ya has vencido
 
 Y si pienso que me caigo
 ya me levanté contigo...`
@@ -249,21 +213,14 @@ Para regar mis lagrimales en invierno`
 };
 
 
-/* =========================================================
-   ABRIR FILTRACIONES
-========================================================= */
-
 document
     .querySelectorAll(".leak-card[data-content]")
     .forEach(card => {
 
         card.addEventListener("click", () => {
 
-            const key =
-                card.dataset.content;
-
-            const content =
-                leakContent[key];
+            const key = card.dataset.content;
+            const content = leakContent[key];
 
             if (!content) return;
 
@@ -277,10 +234,6 @@ document
 
     });
 
-
-/* =========================================================
-   FILTRACIONES BLOQUEADAS
-========================================================= */
 
 document
     .querySelectorAll(".locked-card")
@@ -296,28 +249,21 @@ document
                 "UPS, lo siento, no tienes acceso todavía por aquí."
             ];
 
-            const message =
+            openModal(
+                "🔒",
+                "BLOQUEADO",
                 messages[
                     Math.floor(
                         Math.random() *
                         messages.length
                     )
-                ];
-
-            openModal(
-                "🔒",
-                "BLOQUEADO",
-                message
+                ]
             );
 
         });
 
     });
 
-
-/* =========================================================
-   REFLEXIONES NORMALES
-========================================================= */
 
 const reflections = {
 
@@ -363,41 +309,40 @@ Por un momento mi arma se detiene, el fuego cesa y la lluvia la frenamos con un 
 };
 
 
-/* =========================================================
-   REFLEXIONES PROTEGIDAS
-========================================================= */
+const protectedReflections = {
 
+    cuentagotas: {
 
-/*
-   CUENTAGOTAS
-*/
+        number: "04",
 
-const CUENTAGOTAS_PASSWORD =
-    "R13GAM1SOJO5";
+        title: "CUENTAGOTAS",
 
-const cuentagotasText =
+        password: CUENTAGOTAS_PASSWORD,
+
+        content:
 `Prométeme que
 siempre tendré un hueco entre tus brazos. Un lugar para hospedarme
-hasta que se detenga la tormenta. 
-
+hasta que se detenga la tormenta.
 
 Protégeme de mi
 mismo, y acaríciame para que recuerde quién soy y dónde vivo. Pues
-contigo se me olvida todo, mi nombre, mi voz y hasta dónde habito. 
+contigo se me olvida todo, mi nombre, mi voz y hasta dónde habito.
+
+Contigo vuelvo a ser de vidrio, aunque si me cuidas aparentaré ser fuerte durante un rato. Pero sé de sobra que mi armadura es frágil, y que es cuestión de tiempo que se deshaga entre tus brazos; para volver a rehacerse más fuerte e intentar que la lluvia no la deje hecha pedazos.`
+
+    },
 
 
-Contigo vuelvo a ser de vidrio, aunque si me cuidas aparentaré ser fuerte durante un rato. Pero sé de sobra que mi armadura es frágil, y que es cuestión de tiempo que se deshaga entre tus brazos; para volver a rehacerse más fuerte e intentar que la lluvia no la deje hecha pedazos.`;
+    guerrera: {
 
+        number: "05",
 
-/*
-   GUERRERA
-*/
+        title: "GUERRERA",
 
-const GUERRERA_PASSWORD =
-    "GUERRERA";
+        password: GUERRERA_PASSWORD,
 
-const guerreraReflectionText =
-`Como buen guerrero, para ser sincero, intento aprender a lidiar las peores batallas observando a otros luchadores. Porqué sí, el espíritu del guerrero no se forma solo combatiendo, se construye día a día observando y analizando el comportamiento de otros expertos en la batalla.  
+        content:
+`Como buen guerrero, para ser sincero, intento aprender a lidiar las peores batallas observando a otros luchadores. Porqué sí, el espíritu del guerrero no se forma solo combatiendo, se construye día a día observando y analizando el comportamiento de otros expertos en la batalla.
 
 En mi caso, tengo
 varios ejemplos a seguir en mi vida de los que intento formarme día
@@ -411,126 +356,45 @@ Tampoco olvidaría las infinitas guerras mentales que tienes contigo
 misma con tu imagen. Ha sido bastante pesado, lo sé, pero
 conseguirás ganarle la batalla a los espejos! Lo sé! Eres la mejor!
 
-Bueno, dejando eso atrás. Yo también soy muy débil, en muchos aspectos, sobre todo en lo que se refiere al tema mental. Desde pequeño le he dado importancia a cosas que, con el tiempo, he acabado comprendiendo que no la tienen. Por eso me gustaría pedirte una cosa: Ya que ya te he dicho como se forman los guerreros, necesito que poco a poco nos convirtamos cada uno en el ejemplo a seguir del otro. Solo así podremos solventar nuestros problemas, aprendiendo y analizando cómo el otro los sortea para salir de todo lo que nos angustia. Necesito que crezcamos juntos, física y mentalmente.`;
+Bueno, dejando eso atrás. Yo también soy muy débil, en muchos aspectos, sobre todo en lo que se refiere al tema mental. Desde pequeño le he dado importancia a cosas que, con el tiempo, he acabado comprendiendo que no la tienen. Por eso me gustaría pedirte una cosa: Ya que ya te he dicho como se forman los guerreros, necesito que poco a poco nos convirtamos cada uno en el ejemplo a seguir del otro. Solo así podremos solventar nuestros problemas, aprendiendo y analizando cómo el otro los sortea para salir de todo lo que nos angustia. Necesito que crezcamos juntos, física y mentalmente.`
+
+    },
 
 
-/* =========================================================
-   FUNCIÓN PARA ABRIR REFLEXIÓN PROTEGIDA
-========================================================= */
+    acostado: {
 
-function openProtectedReflection(
-    passwordCorrect,
-    number,
-    title,
-    content
-) {
+        number: "06",
 
-    const password =
-        prompt(
-            "Esta reflexión está protegida.\n\nIntroduce la contraseña:"
-        );
+        title: "ACOSTADO EN TU PECHO",
 
-    if (password === null) return;
+        password: ACOSTADO_PASSWORD,
 
-    if (
-        password.trim() ===
-        passwordCorrect
-    ) {
+        content:
+`Lo protegido que me siento cuando estoy entre tus brazos no puede ser
+descrito ni en miles de poemas, nunca dejes de abrazarme. Uno de los
+textos que te escribí ya tocaba este tema, lo hice aposta para poder
+confundirte un poco con las contraseñas y que fuese algo más
+entretenido.
 
-        openModal(
-            number,
-            title,
-            content
-        );
+Hace no mucho me
+preguntaste que qué prefería, si tumbarme yo en tu pecho o que lo
+hicieras tú…
 
-    } else {
-
-        openModal(
-            "🔒",
-            "ACCESO DENEGADO",
-            "Esa no es la palabra que estás buscando."
-        );
+Bueno… Si te soy plenamente sincero creo que necesito las dos, pues con ellas tiene sentido una pareja. Yo te cuido primero y te canto una canción y tu me proteges después sintiendo mi respiración...`
 
     }
 
-}
+};
 
-
-/* =========================================================
-   CLICK CUENTAGOTAS
-========================================================= */
-
-const lockedCuentagotas =
-    document.querySelector(
-        ".locked-reflection[data-locked-reflection='cuentagotas']"
-    );
-
-
-if (lockedCuentagotas) {
-
-    lockedCuentagotas.addEventListener(
-        "click",
-        () => {
-
-            openProtectedReflection(
-                CUENTAGOTAS_PASSWORD,
-                "04",
-                "CUENTAGOTAS",
-                cuentagotasText
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   CLICK GUERRERA
-========================================================= */
-
-const lockedGuerrera =
-    document.querySelector(
-        ".locked-reflection[data-locked-reflection='guerrera']"
-    );
-
-
-if (lockedGuerrera) {
-
-    lockedGuerrera.addEventListener(
-        "click",
-        () => {
-
-            openProtectedReflection(
-                GUERRERA_PASSWORD,
-                "05",
-                "GUERRERA",
-                guerreraReflectionText
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   ABRIR REFLEXIONES NORMALES
-========================================================= */
 
 document
-    .querySelectorAll(
-        ".reflection-item[data-reflection]"
-    )
+    .querySelectorAll(".reflection-item[data-reflection]")
     .forEach(item => {
 
         item.addEventListener("click", () => {
 
-            const key =
-                item.dataset.reflection;
-
-            const content =
-                reflections[key];
+            const key = item.dataset.reflection;
+            const content = reflections[key];
 
             if (!content) return;
 
@@ -545,29 +409,97 @@ document
     });
 
 
-/* =========================================================
-   MODAL
-========================================================= */
+document
+    .querySelectorAll(".locked-reflection")
+    .forEach(item => {
 
-function openModal(
-    number,
-    title,
-    content
-) {
+        item.addEventListener("click", () => {
+
+            const key =
+                item.dataset.lockedReflection;
+
+            const reflection =
+                protectedReflections[key];
+
+            if (!reflection) return;
+
+            const password = prompt(
+                "Esta reflexión está protegida.\n\nIntroduce la contraseña:"
+            );
+
+            if (password === null) return;
+
+            if (
+                password.trim() ===
+                reflection.password
+            ) {
+
+                openModal(
+                    reflection.number,
+                    reflection.title,
+                    reflection.content
+                );
+
+            } else {
+
+                openModal(
+                    "🔒",
+                    "ACCESO DENEGADO",
+                    "Esa no es la palabra que estás buscando."
+                );
+
+            }
+
+        });
+
+    });
+
+
+document
+    .querySelectorAll(".locked-content")
+    .forEach(item => {
+
+        item.addEventListener("click", () => {
+
+            const type = item.dataset.locked;
+
+            if (type === "video") {
+
+                openModal(
+                    "🔒",
+                    "VÍDEO",
+                    "Mmm... creo que todavía no tienes acceso a esto."
+                );
+
+            }
+
+            if (type === "book") {
+
+                openModal(
+                    "🔒",
+                    "AMOR EN RIMAS II",
+                    "UPS... parece que todavía no puedes abrirlo."
+                );
+
+            }
+
+        });
+
+    });
+
+
+function openModal(number, title, content) {
 
     if (modalNumber) {
-        modalNumber.textContent =
-            number;
+        modalNumber.textContent = number;
     }
 
     if (modalTitle) {
-        modalTitle.textContent =
-            title;
+        modalTitle.textContent = title;
     }
 
     if (modalContent) {
-        modalContent.textContent =
-            content;
+        modalContent.textContent = content;
     }
 
     if (modal) {
@@ -597,9 +529,7 @@ if (closeModal) {
 
 
 const modalBackground =
-    document.querySelector(
-        ".modal-background"
-    );
+    document.querySelector(".modal-background");
 
 
 if (modalBackground) {
@@ -612,62 +542,14 @@ if (modalBackground) {
 }
 
 
-document.addEventListener(
-    "keydown",
-    event => {
+document.addEventListener("keydown", event => {
 
-        if (event.key === "Escape") {
-            closeContentModal();
-        }
-
+    if (event.key === "Escape") {
+        closeContentModal();
     }
-);
 
+});
 
-/* =========================================================
-   CONTENIDO BLOQUEADO DEL REGALO
-========================================================= */
-
-document
-    .querySelectorAll(".locked-content")
-    .forEach(item => {
-
-        item.addEventListener(
-            "click",
-            () => {
-
-                const type =
-                    item.dataset.locked;
-
-                if (type === "video") {
-
-                    openModal(
-                        "🔒",
-                        "VÍDEO",
-                        "Mmm... creo que todavía no tienes acceso a esto."
-                    );
-
-                }
-
-                if (type === "book") {
-
-                    openModal(
-                        "🔒",
-                        "AMOR EN RIMAS II",
-                        "UPS... parece que todavía no puedes abrirlo."
-                    );
-
-                }
-
-            }
-        );
-
-    });
-
-
-/* =========================================================
-   JUEGO DE MEMORIA
-========================================================= */
 
 const memorySymbols = [
     "🐿️",
@@ -688,155 +570,90 @@ const memorySymbols = [
 ];
 
 
-/*
-   6 niveles:
-
-   I   = 4
-   II  = 6
-   III = 8
-   IV  = 10
-   V   = 12
-   VI  = 15
-*/
-
 const gameLevels = [
-
     {
         amount: 4,
         roman: "I"
     },
-
     {
         amount: 6,
         roman: "II"
     },
-
     {
         amount: 8,
         roman: "III"
     },
-
     {
         amount: 10,
         roman: "IV"
     },
-
     {
         amount: 12,
         roman: "V"
     },
-
     {
         amount: 15,
         roman: "VI"
     }
-
 ];
 
 
-/* =========================================================
-   ELEMENTOS DEL JUEGO
-========================================================= */
-
 const gameIntro =
-    document.getElementById(
-        "gameIntro"
-    );
+    document.getElementById("gameIntro");
 
 const gameLevel =
-    document.getElementById(
-        "gameLevel"
-    );
+    document.getElementById("gameLevel");
 
 const levelSuccess =
-    document.getElementById(
-        "levelSuccess"
-    );
+    document.getElementById("levelSuccess");
 
 const gameFailure =
-    document.getElementById(
-        "gameFailure"
-    );
+    document.getElementById("gameFailure");
 
 const gameFinal =
-    document.getElementById(
-        "gameFinal"
-    );
+    document.getElementById("gameFinal");
 
 
 const startGameButton =
-    document.getElementById(
-        "startGameButton"
-    );
+    document.getElementById("startGameButton");
 
 const nextLevelButton =
-    document.getElementById(
-        "nextLevelButton"
-    );
+    document.getElementById("nextLevelButton");
 
 const retryGameButton =
-    document.getElementById(
-        "retryGameButton"
-    );
+    document.getElementById("retryGameButton");
 
 
 const sequenceArea =
-    document.getElementById(
-        "sequenceArea"
-    );
+    document.getElementById("sequenceArea");
 
 const gameGrid =
-    document.getElementById(
-        "gameGrid"
-    );
+    document.getElementById("gameGrid");
 
 
 const levelNumber =
-    document.getElementById(
-        "levelNumber"
-    );
+    document.getElementById("levelNumber");
 
 const levelProgress =
-    document.getElementById(
-        "levelProgress"
-    );
+    document.getElementById("levelProgress");
 
 const levelTitle =
-    document.getElementById(
-        "levelTitle"
-    );
+    document.getElementById("levelTitle");
 
 const levelInstruction =
-    document.getElementById(
-        "levelInstruction"
-    );
+    document.getElementById("levelInstruction");
 
 const gameFeedback =
-    document.getElementById(
-        "gameFeedback"
-    );
+    document.getElementById("gameFeedback");
 
-
-/* =========================================================
-   ESTADO DEL JUEGO
-========================================================= */
 
 let currentLevel = 0;
-
 let currentSequence = [];
-
 let playerSequence = [];
-
 let acceptingInput = false;
 
 
-/* =========================================================
-   CAMBIAR VISTA DEL JUEGO
-========================================================= */
-
 function showGameView(view) {
-
-    if (!view) return;
 
     [
         gameIntro,
@@ -847,21 +664,17 @@ function showGameView(view) {
     ].forEach(element => {
 
         if (element) {
-            element.classList.remove(
-                "active"
-            );
+            element.classList.remove("active");
         }
 
     });
 
-    view.classList.add("active");
+    if (view) {
+        view.classList.add("active");
+    }
 
 }
 
-
-/* =========================================================
-   EMPEZAR JUEGO
-========================================================= */
 
 if (startGameButton) {
 
@@ -870,7 +683,6 @@ if (startGameButton) {
         () => {
 
             currentLevel = 0;
-
             startCurrentLevel();
 
         }
@@ -879,10 +691,6 @@ if (startGameButton) {
 }
 
 
-/* =========================================================
-   GENERAR SECUENCIA
-========================================================= */
-
 function generateSequence(amount) {
 
     const shuffled =
@@ -890,17 +698,10 @@ function generateSequence(amount) {
 
     shuffleArray(shuffled);
 
-    return shuffled.slice(
-        0,
-        amount
-    );
+    return shuffled.slice(0, amount);
 
 }
 
-
-/* =========================================================
-   SHUFFLE
-========================================================= */
 
 function shuffleArray(array) {
 
@@ -912,8 +713,7 @@ function shuffleArray(array) {
 
         const j =
             Math.floor(
-                Math.random() *
-                (i + 1)
+                Math.random() * (i + 1)
             );
 
         [
@@ -932,10 +732,6 @@ function shuffleArray(array) {
 }
 
 
-/* =========================================================
-   INICIAR NIVEL
-========================================================= */
-
 function startCurrentLevel() {
 
     const level =
@@ -944,93 +740,56 @@ function startCurrentLevel() {
     if (!level) return;
 
     currentSequence =
-        generateSequence(
-            level.amount
-        );
+        generateSequence(level.amount);
 
     playerSequence = [];
-
     acceptingInput = false;
 
-    showGameView(
-        gameLevel
-    );
-
+    showGameView(gameLevel);
 
     if (levelNumber) {
-
         levelNumber.textContent =
             `NIVEL ${level.roman}`;
-
     }
-
 
     if (levelProgress) {
-
         levelProgress.textContent =
             `${currentLevel + 1} / ${gameLevels.length}`;
-
     }
-
 
     if (levelTitle) {
-
-        levelTitle.textContent =
-            "RECUERDA";
-
+        levelTitle.textContent = "RECUERDA";
     }
-
 
     if (levelInstruction) {
-
         levelInstruction.textContent =
             "Observa bien...";
-
     }
-
 
     if (gameFeedback) {
-
-        gameFeedback.textContent =
-            "";
-
+        gameFeedback.textContent = "";
     }
-
 
     if (sequenceArea) {
-
-        sequenceArea.innerHTML =
-            "";
-
+        sequenceArea.innerHTML = "";
     }
-
 
     if (gameGrid) {
-
-        gameGrid.innerHTML =
-            "";
-
+        gameGrid.innerHTML = "";
     }
-
 
     showSequence();
 
 }
 
 
-/* =========================================================
-   MOSTRAR SECUENCIA
-========================================================= */
-
 async function showSequence() {
 
     if (!sequenceArea) return;
 
-    sequenceArea.innerHTML =
-        "";
+    sequenceArea.innerHTML = "";
 
     await wait(600);
-
 
     for (
         let i = 0;
@@ -1039,9 +798,7 @@ async function showSequence() {
     ) {
 
         const symbol =
-            document.createElement(
-                "div"
-            );
+            document.createElement("div");
 
         symbol.className =
             "sequence-symbol";
@@ -1052,180 +809,106 @@ async function showSequence() {
         symbol.style.animationDelay =
             `${i * 0.08}s`;
 
-        sequenceArea.appendChild(
-            symbol
-        );
+        sequenceArea.appendChild(symbol);
 
         await wait(330);
 
     }
 
-
     await wait(1300);
 
-
-    sequenceArea.innerHTML =
-        "";
-
+    sequenceArea.innerHTML = "";
 
     if (levelTitle) {
-
-        levelTitle.textContent =
-            "AHORA TÚ";
-
+        levelTitle.textContent = "AHORA TÚ";
     }
-
 
     if (levelInstruction) {
-
         levelInstruction.textContent =
             "Repite la secuencia en el mismo orden.";
-
     }
-
 
     createMemoryGrid();
 
 }
 
 
-/* =========================================================
-   CREAR TABLERO
-========================================================= */
-
 function createMemoryGrid() {
 
     if (!gameGrid) return;
 
-    gameGrid.innerHTML =
-        "";
-
+    gameGrid.innerHTML = "";
 
     const shuffledSymbols =
         [...memorySymbols];
 
-    shuffleArray(
-        shuffledSymbols
-    );
+    shuffleArray(shuffledSymbols);
 
+    shuffledSymbols.forEach(symbol => {
 
-    shuffledSymbols.forEach(
-        symbol => {
+        const card =
+            document.createElement("button");
 
-            const card =
-                document.createElement(
-                    "button"
-                );
+        card.className = "memory-card";
 
-            card.className =
-                "memory-card";
+        card.textContent = symbol;
 
-            card.textContent =
-                symbol;
+        card.dataset.symbol = symbol;
 
-            card.dataset.symbol =
-                symbol;
+        card.addEventListener(
+            "click",
+            () => handleMemoryClick(
+                card,
+                symbol
+            )
+        );
 
-            card.addEventListener(
-                "click",
-                () =>
-                    handleMemoryClick(
-                        card,
-                        symbol
-                    )
-            );
+        gameGrid.appendChild(card);
 
-            gameGrid.appendChild(
-                card
-            );
-
-        }
-    );
-
+    });
 
     acceptingInput = true;
 
 }
 
 
-/* =========================================================
-   CLICK DEL JUGADOR
-========================================================= */
-
-function handleMemoryClick(
-    card,
-    symbol
-) {
+function handleMemoryClick(card, symbol) {
 
     if (!acceptingInput) return;
 
-
     if (
-        card.classList.contains(
-            "selected"
-        )
+        card.classList.contains("selected")
     ) {
-
         return;
-
     }
 
-
     const expectedSymbol =
-        currentSequence[
-            playerSequence.length
-        ];
+        currentSequence[playerSequence.length];
 
-
-    /* ERROR */
-
-    if (
-        symbol !== expectedSymbol
-    ) {
+    if (symbol !== expectedSymbol) {
 
         acceptingInput = false;
 
-        card.classList.add(
-            "wrong"
-        );
-
+        card.classList.add("wrong");
 
         if (gameFeedback) {
-
             gameFeedback.textContent =
                 "Ese no era...";
-
         }
 
+        setTimeout(() => {
 
-        setTimeout(
-            () => {
+            showGameView(gameFailure);
 
-                showGameView(
-                    gameFailure
-                );
-
-            },
-            650
-        );
+        }, 650);
 
         return;
 
     }
 
+    playerSequence.push(symbol);
 
-    /* CORRECTO */
-
-    playerSequence.push(
-        symbol
-    );
-
-    card.classList.add(
-        "selected"
-    );
-
-
-    /* NIVEL COMPLETADO */
+    card.classList.add("selected");
 
     if (
         playerSequence.length ===
@@ -1234,23 +917,16 @@ function handleMemoryClick(
 
         acceptingInput = false;
 
-        setTimeout(
-            () => {
+        setTimeout(() => {
 
-                levelCompleted();
+            levelCompleted();
 
-            },
-            500
-        );
+        }, 500);
 
     }
 
 }
 
-
-/* =========================================================
-   NIVEL COMPLETADO
-========================================================= */
 
 function levelCompleted() {
 
@@ -1265,18 +941,15 @@ function levelCompleted() {
 
     }
 
-
     const nextAmount =
         gameLevels[
             currentLevel + 1
         ].amount;
 
-
     const successText =
         document.getElementById(
             "levelSuccessText"
         );
-
 
     if (successText) {
 
@@ -1285,17 +958,10 @@ function levelCompleted() {
 
     }
 
-
-    showGameView(
-        levelSuccess
-    );
+    showGameView(levelSuccess);
 
 }
 
-
-/* =========================================================
-   SIGUIENTE NIVEL
-========================================================= */
 
 if (nextLevelButton) {
 
@@ -1304,7 +970,6 @@ if (nextLevelButton) {
         () => {
 
             currentLevel++;
-
             startCurrentLevel();
 
         }
@@ -1312,10 +977,6 @@ if (nextLevelButton) {
 
 }
 
-
-/* =========================================================
-   REINICIAR
-========================================================= */
 
 if (retryGameButton) {
 
@@ -1324,7 +985,6 @@ if (retryGameButton) {
         () => {
 
             currentLevel = 0;
-
             startCurrentLevel();
 
         }
@@ -1333,103 +993,58 @@ if (retryGameButton) {
 }
 
 
-/* =========================================================
-   WAIT
-========================================================= */
-
 function wait(milliseconds) {
 
-    return new Promise(
-        resolve => {
+    return new Promise(resolve => {
 
-            setTimeout(
-                resolve,
-                milliseconds
-            );
+        setTimeout(resolve, milliseconds);
 
-        }
-    );
+    });
 
 }
 
-
-/* =========================================================
-   FINAL DEL JUEGO
-========================================================= */
 
 async function finishGame() {
 
     acceptingInput = false;
 
-    showGameView(
-        gameFinal
-    );
-
+    showGameView(gameFinal);
 
     const finalSymbols =
-        document.getElementById(
-            "finalSymbols"
-        );
+        document.getElementById("finalSymbols");
 
     const finalMessage =
-        document.getElementById(
-            "finalMessage"
-        );
+        document.getElementById("finalMessage");
 
     const passwordReveal =
-        document.getElementById(
-            "passwordReveal"
-        );
+        document.getElementById("passwordReveal");
 
     const revealedPassword =
-        document.getElementById(
-            "revealedPassword"
-        );
+        document.getElementById("revealedPassword");
 
     const finalParticles =
-        document.getElementById(
-            "finalParticles"
-        );
+        document.getElementById("finalParticles");
 
 
     if (finalSymbols) {
-
-        finalSymbols.innerHTML =
-            "";
-
+        finalSymbols.innerHTML = "";
     }
-
 
     if (passwordReveal) {
-
-        passwordReveal.classList.remove(
-            "show"
-        );
-
+        passwordReveal.classList.remove("show");
     }
-
 
     if (revealedPassword) {
-
-        revealedPassword.innerHTML =
-            "";
-
+        revealedPassword.innerHTML = "";
     }
-
 
     if (finalParticles) {
-
-        finalParticles.innerHTML =
-            "";
-
+        finalParticles.innerHTML = "";
     }
-
 
     createFinalParticles();
 
-
     await wait(1300);
-
 
     if (finalSymbols) {
 
@@ -1440,9 +1055,7 @@ async function finishGame() {
         ) {
 
             const symbol =
-                document.createElement(
-                    "span"
-                );
+                document.createElement("span");
 
             symbol.className =
                 "final-symbol";
@@ -1453,9 +1066,7 @@ async function finishGame() {
             symbol.style.animationDelay =
                 `${i * 0.11}s`;
 
-            finalSymbols.appendChild(
-                symbol
-            );
+            finalSymbols.appendChild(symbol);
 
             await wait(110);
 
@@ -1463,38 +1074,22 @@ async function finishGame() {
 
     }
 
-
     await wait(2500);
 
-
     if (finalMessage) {
-
-        finalMessage.style.opacity =
-            "0";
-
+        finalMessage.style.opacity = "0";
     }
-
 
     await wait(1300);
 
-
     if (passwordReveal) {
-
-        passwordReveal.classList.add(
-            "show"
-        );
-
+        passwordReveal.classList.add("show");
     }
-
 
     await revealPassword();
 
 }
 
-
-/* =========================================================
-   REVELAR CONTRASEÑA
-========================================================= */
 
 async function revealPassword() {
 
@@ -1505,9 +1100,7 @@ async function revealPassword() {
 
     if (!revealedPassword) return;
 
-    revealedPassword.innerHTML =
-        "";
-
+    revealedPassword.innerHTML = "";
 
     for (
         let i = 0;
@@ -1516,9 +1109,7 @@ async function revealPassword() {
     ) {
 
         const character =
-            document.createElement(
-                "span"
-            );
+            document.createElement("span");
 
         character.className =
             "password-character";
@@ -1540,10 +1131,6 @@ async function revealPassword() {
 }
 
 
-/* =========================================================
-   PARTÍCULAS DEL FINAL
-========================================================= */
-
 function createFinalParticles() {
 
     const container =
@@ -1552,7 +1139,6 @@ function createFinalParticles() {
         );
 
     if (!container) return;
-
 
     const particleSymbols = [
         "·",
@@ -1563,7 +1149,6 @@ function createFinalParticles() {
         "✶"
     ];
 
-
     for (
         let i = 0;
         i < 35;
@@ -1571,9 +1156,7 @@ function createFinalParticles() {
     ) {
 
         const particle =
-            document.createElement(
-                "span"
-            );
+            document.createElement("span");
 
         particle.className =
             "final-particle";
@@ -1585,7 +1168,6 @@ function createFinalParticles() {
                     particleSymbols.length
                 )
             ];
-
 
         particle.style.left =
             `${Math.random() * 100}%`;
@@ -1599,18 +1181,12 @@ function createFinalParticles() {
         particle.style.animationDelay =
             `${Math.random() * 3}s`;
 
-        container.appendChild(
-            particle
-        );
+        container.appendChild(particle);
 
     }
 
 }
 
-
-/* =========================================================
-   BOTÓN FINAL
-========================================================= */
 
 const continueAfterGame =
     document.getElementById(
@@ -1624,7 +1200,7 @@ if (continueAfterGame) {
         "click",
         () => {
 
-            showScreen("home");
+            showScreen("reflections");
 
         }
     );
@@ -1632,14 +1208,8 @@ if (continueAfterGame) {
 }
 
 
-/* =========================================================
-   SALIR DEL JUEGO
-========================================================= */
-
 const gameBack =
-    document.querySelector(
-        ".game-back"
-    );
+    document.querySelector(".game-back");
 
 
 if (gameBack) {
@@ -1649,20 +1219,12 @@ if (gameBack) {
         () => {
 
             currentLevel = 0;
-
             currentSequence = [];
-
             playerSequence = [];
-
             acceptingInput = false;
 
-            showGameView(
-                gameIntro
-            );
-
-            showScreen(
-                "home"
-            );
+            showGameView(gameIntro);
+            showScreen("home");
 
         }
     );
