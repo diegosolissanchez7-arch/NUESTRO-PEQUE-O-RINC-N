@@ -1,22 +1,23 @@
+// ===============================
+// CONTRASEÑAS
+// ===============================
+
 const PORTAL_PASSWORD = "1CHL13B3DICH";
 const FINAL_PASSWORD = "3NTUSBR4Z0S";
 
+const AUTOEXIGENCIA_PASSWORD = "4UT03XIG3NC1A";
 const CUENTAGOTAS_PASSWORD = "R13GAM1SOJO5";
 const GUERRERA_PASSWORD = "GUERRERA";
 const ACOSTADO_PASSWORD = "3NTUSBR4Z0S";
+const TE_MIRO_PASSWORD = "DUD4PR0V1SION4L";
 
-const screens = document.querySelectorAll(".screen");
 
-const modal = document.getElementById("contentModal");
-const modalTitle = document.getElementById("modalTitle");
-const modalContent = document.getElementById("modalContent");
-const modalNumber = document.getElementById("modalNumber");
-const closeModal = document.getElementById("closeModal");
-
+// ===============================
+// NAVEGACIÓN
+// ===============================
 
 function showScreen(id) {
-
-    screens.forEach(screen => {
+    document.querySelectorAll(".screen").forEach(screen => {
         screen.classList.remove("active");
     });
 
@@ -24,471 +25,417 @@ function showScreen(id) {
 
     if (target) {
         target.classList.add("active");
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
     }
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
 }
 
 
+// Botones con data-section
 document.querySelectorAll("[data-section]").forEach(button => {
-
     button.addEventListener("click", () => {
-
         const section = button.dataset.section;
 
         if (section) {
             showScreen(section);
         }
-
     });
-
 });
 
 
+// Botones para volver a HOME
 document.querySelectorAll("[data-home]").forEach(button => {
-
     button.addEventListener("click", () => {
         showScreen("home");
     });
-
 });
 
 
-const passwordForm =
-    document.getElementById("passwordForm");
+// ===============================
+// PORTAL / CONTRASEÑA PRINCIPAL
+// ===============================
 
-const passwordInput =
-    document.getElementById("passwordInput");
-
-const passwordMessage =
-    document.getElementById("passwordMessage");
-
-const portalSunflower =
-    document.getElementById("portalSunflower");
-
-
-const wrongMessages = [
-    "Mmm... por aquí no es.",
-    "Casi... pero no.",
-    "¿Seguro que esa era la clave?",
-    "No parece que esto se abra así...",
-    "UPS, lo siento, no tienes acceso todavía por aquí.",
-    "Mmm... Creo que tendrás que esperar.",
-    "VAYA, parece que todavía no puedes."
-];
-
+const passwordForm = document.getElementById("passwordForm");
+const passwordInput = document.getElementById("passwordInput");
+const passwordMessage = document.getElementById("passwordMessage");
+const portalSunflower = document.getElementById("portalSunflower");
 
 if (passwordForm) {
-
     passwordForm.addEventListener("submit", event => {
-
         event.preventDefault();
 
-        const enteredPassword =
-            passwordInput.value.trim();
+        const password = passwordInput.value.trim();
 
-        if (enteredPassword === PORTAL_PASSWORD) {
+        if (password === PORTAL_PASSWORD) {
 
             passwordMessage.textContent = "";
-
+            
             if (portalSunflower) {
                 portalSunflower.classList.add("show");
-                portalSunflower.classList.add("unlock");
             }
 
-            passwordInput.disabled = true;
-
             setTimeout(() => {
-
                 showScreen("home");
 
-                passwordInput.disabled = false;
-                passwordInput.value = "";
+                // Si se ha entrado mediante un QR,
+                // abrimos automáticamente la reflexión correspondiente.
+                handleReflectionHash();
 
             }, 2200);
 
         } else {
 
-            passwordMessage.textContent =
-                wrongMessages[
-                    Math.floor(
-                        Math.random() *
-                        wrongMessages.length
-                    )
-                ];
+            passwordMessage.textContent = "No es esa... inténtalo otra vez.";
 
             passwordInput.value = "";
             passwordInput.focus();
-
         }
-
     });
-
 }
 
+
+// ===============================
+// CONTENIDO DE FILTRACIONES
+// ===============================
 
 const leakContent = {
 
     autoexigencia: {
-
         number: "01",
-
-        title: "AUTOEXIGENCIA LIMITANTE",
-
+        title: "AUTOEXIGENCIA",
         content:
-`Espíritu irrealizable
-Sentido insignificante
-ante mares inavegables
+`Hay días en los que parece que tienes que hacerlo todo bien.
 
-Rechazar que alguien te ayude
-Vacíos que no se llenan
-Rozar un techo de nubes
-Deseos entre cadenas
+Ser suficiente.
+Ser fuerte.
+No equivocarte.
+No parar.
 
-¿Perdida en la infinitud?
-¡Pero si está dentro de sí!
-¿Alcanzar la plenitud?
-Yo la encuentro dentro de ti.`
+Y quizá nadie te lo esté pidiendo.
 
+Quizá seas tú.
+
+No tienes que demostrar constantemente que puedes con todo.
+
+También puedes descansar.
+También puedes fallar.
+También puedes simplemente estar.
+
+No quiero que tengas que ser perfecta conmigo.
+
+Quiero que puedas ser tú.`
     },
 
 
     espejos: {
-
         number: "02",
-
         title: "ESPEJOS",
-
         content:
-`Ojalá un mundo sin espejos
-y sin muestras superficiales
-que no permita que los reflejos
-se apoderen de las verdades
+`A veces los espejos mienten.
 
-Injustas las imágenes
-Si solo enseñan una superficie
-Que artificiales los márgenes
-Yo aprecio tus raíces
+Te enseñan aquello que más miedo tienes de encontrar.
 
-Mírate dentro de mi
-Y obsérvate más orgullosa
-Quizá sea muy idealista
-Pero menos artificiosa`
+Pero yo no quiero mirarte a través de un espejo.
 
+Quiero mirarte a ti.
+
+A tus gestos.
+A tus ojos.
+A esa sonrisa que aparece cuando intentas disimular que estás feliz.
+
+Y quiero que algún día puedas mirarte como yo te miro.`
     },
 
 
     guerrera: {
-
         number: "03",
-
         title: "GUERRERA",
-
         content:
-`Y si piensas que te caes,
-para mí tú ya has vencido
+`No tienes que luchar todo el tiempo.
 
-Y si pienso que me caigo
-ya me levanté contigo...`
+Sé que puedes hacerlo.
+Sé que eres fuerte.
 
+Pero conmigo no tienes que demostrarlo.
+
+Puedes bajar la espada.
+
+Puedes descansar.
+
+Puedes dejar que alguien te cuide.
+
+No porque seas débil.
+
+Sino porque también mereces que alguien luche por ti.`
     },
 
 
     cuentagotas: {
-
         number: "04",
-
         title: "CUENTAGOTAS",
-
         content:
-`Ojalá siempre cuentes mis lágrimas
-***************
-Para regar mis lagrimales en invierno`
+`Hay personas que llegan a tu vida como una tormenta.
 
+Y hay personas que llegan gota a gota.
+
+Sin hacer ruido.
+
+Sin pedir permiso.
+
+Simplemente empiezan a quedarse.
+
+Y cuando te quieres dar cuenta...
+
+ya forman parte de ti.`
     }
 
 };
 
 
-document
-    .querySelectorAll(".leak-card[data-content]")
-    .forEach(card => {
+// Abrir filtraciones
+document.querySelectorAll(".leak-card[data-content]").forEach(card => {
 
-        card.addEventListener("click", () => {
+    card.addEventListener("click", () => {
 
-            const key = card.dataset.content;
-            const content = leakContent[key];
+        const key = card.dataset.content;
+        const content = leakContent[key];
 
-            if (!content) return;
+        if (!content) return;
 
-            openModal(
-                content.number,
-                content.title,
-                content.content
-            );
-
-        });
+        openModal(
+            content.number,
+            content.title,
+            content.content
+        );
 
     });
 
+});
 
-document
-    .querySelectorAll(".locked-card")
-    .forEach(card => {
 
-        card.addEventListener("click", () => {
+// Filtraciones bloqueadas
+document.querySelectorAll(".leak-card.locked").forEach(card => {
 
-            const messages = [
-                "Mmm... por aquí no es.",
-                "Casi... pero no.",
-                "¿Seguro que esa era la clave?",
-                "No parece que esto se abra así...",
-                "UPS, lo siento, no tienes acceso todavía por aquí."
-            ];
+    card.addEventListener("click", () => {
 
-            openModal(
-                "🔒",
-                "BLOQUEADO",
-                messages[
-                    Math.floor(
-                        Math.random() *
-                        messages.length
-                    )
-                ]
-            );
+        const messages = [
+            "Todavía no puedes ver esto.",
+            "Esto está guardado para más adelante.",
+            "Quizá todavía no estés preparada.",
+            "Aquí hay algo que tendrás que descubrir.",
+            "No tan rápido..."
+        ];
 
-        });
+        const randomMessage =
+            messages[Math.floor(Math.random() * messages.length)];
+
+        openModal(
+            "🔒",
+            "BLOQUEADO",
+            randomMessage
+        );
 
     });
 
+});
+
+
+// ===============================
+// REFLEXIONES SIN CONTRASEÑA
+// ===============================
 
 const reflections = {
 
     cambios: {
-
         number: "01",
-
         title: "CAMBIOS",
-
         content:
-`A veces me pregunto si ha cambiado algo en mi vida desde que te conocí, y, realmente, la duda debería de ofenderme, pues claro que han cambiado muchísimas cosas. No obstante, como contigo he tenido la suerte de llevar una relación día a día y sin la necesidad de forzar nada, los cambios han sido tan naturales que parece que todo siga igual que antes. Pero.... Obviamente no. Por mucho que nos hayamos adaptado progresivamente los cambios son indudables si nos remontamos a un año y medio atrás. Y no hablo simplemente de unos planes en el futuro o de una nueva compañía, me refiero a modificaciones menos evidentes pero que significan mucho para los dos...`
-
+`Por añadir todavía`
     },
 
 
     espejosReflection: {
-
         number: "02",
-
         title: "ESPEJOS",
-
         content:
-`Ojalá un mundo sin espejos. Sin ningún objeto que te permita sentirte mal contigo misma diariamente. Ojalá pudieras conocerte a través de la imagen que tengo de ti. Esa que solo yo conozco y que me encantaría enseñarte. Realmente, me gustaría ser tu propio espejo. No sé si pecaría de idealista o si la imagen que te mostrase deformara tu realidad de igual manera que el resto de espejos. Lo que si que sé es que te destaparía miles de detalles que tú sola no eres capaz de reconocer. Te permitiría encontrarte con, no sé si verdadera, pero, tu "más justa yo". Porque sí, a lo mejor peco de idealista como ya he comentado, pero sé al menos que mis imágenes contemplarían trocitos preciosos aparentemente inexistentes para ti.
-
-Ojalá destruir todos los espejos y dejar tan solo nuestros corazones. El mío también tiene mucho de ti. Si lo observaras te encontrarías también con tu yo más pura. Esa que yo me guardo en lo más profundo de mí y que ya no se puede eliminar de ninguna forma. No sé, me da rabia que sean objetos tan injustos. Es lo que tiene, ¿No? Al final, cuando un reflejo contiene solo una superficie se pierde el interior completo de la imagen. La belleza de un árbol se sustenta justo en sus raíces. Sin embargo, todos dejamos nuestra mirada a medias. Por eso te pido que te mires en mi interior. Puede que mi mirada sea demasiado generosa, pero te aseguro que no se quedará a medias como la del resto de espejos.`
-
+`Por añadir todavía`
     },
 
 
     besos: {
-
         number: "03",
-
         title: "BESOS ENFRENTADOS",
-
         content:
-`Que sensación tan agridulce cuando en medio de una discusión con mi pareja decido darle un beso. Así, sin pensármelo demasiado.
-
-Por un momento mi arma se detiene, el fuego cesa y la lluvia la frenamos con un paraguas de cartón. Porque durante unos segundos, antes de retomar el conflicto y volver a los disparos, nuestras bocas dejan de vomitar palabras vacías y se funden tímidamente en el hombro del otro para recordarnos que nuestro amor sigue flotando.`
-
+`Por añadir todavía`
     }
 
 };
 
 
+// ===============================
+// REFLEXIONES PROTEGIDAS
+// ===============================
+
 const protectedReflections = {
+
+    autoexigencia: {
+
+        number: "04",
+
+        title: "AUTOEXIGENCIA LIMITANTE",
+
+        password: AUTOEXIGENCIA_PASSWORD,
+
+        content:
+`Por añadir todavía`
+
+    },
+
 
     cuentagotas: {
 
-        number: "04",
+        number: "05",
 
         title: "CUENTAGOTAS",
 
         password: CUENTAGOTAS_PASSWORD,
 
         content:
-`Prométeme que
-siempre tendré un hueco entre tus brazos. Un lugar para hospedarme
-hasta que se detenga la tormenta.
-
-Protégeme de mi
-mismo, y acaríciame para que recuerde quién soy y dónde vivo. Pues
-contigo se me olvida todo, mi nombre, mi voz y hasta dónde habito.
-
-Contigo vuelvo a ser de vidrio, aunque si me cuidas aparentaré ser fuerte durante un rato. Pero sé de sobra que mi armadura es frágil, y que es cuestión de tiempo que se deshaga entre tus brazos; para volver a rehacerse más fuerte e intentar que la lluvia no la deje hecha pedazos.`
+`Por añadir todavía`
 
     },
 
 
     guerrera: {
 
-        number: "05",
+        number: "06",
 
         title: "GUERRERA",
 
         password: GUERRERA_PASSWORD,
 
         content:
-`Como buen guerrero, para ser sincero, intento aprender a lidiar las peores batallas observando a otros luchadores. Porqué sí, el espíritu del guerrero no se forma solo combatiendo, se construye día a día observando y analizando el comportamiento de otros expertos en la batalla.
-
-En mi caso, tengo
-varios ejemplos a seguir en mi vida de los que intento formarme día
-a día para aprender algo nuevo siempre, pero si tuviera que hablar
-de lo que me has enseñado tú, recordaría sin duda la fuerza que
-tienes para soportar el dolor (tanto físico como mental). Nunca me
-olvidaré de cuando se te salió el hombro por segunda vez… Pues
-lejos de llorar o lamentarte por todo lo que se te venía, saliste
-del campo riéndote con esa felicidad que tanto te caracteriza.
-Tampoco olvidaría las infinitas guerras mentales que tienes contigo
-misma con tu imagen. Ha sido bastante pesado, lo sé, pero
-conseguirás ganarle la batalla a los espejos! Lo sé! Eres la mejor!
-
-Bueno, dejando eso atrás. Yo también soy muy débil, en muchos aspectos, sobre todo en lo que se refiere al tema mental. Desde pequeño le he dado importancia a cosas que, con el tiempo, he acabado comprendiendo que no la tienen. Por eso me gustaría pedirte una cosa: Ya que ya te he dicho como se forman los guerreros, necesito que poco a poco nos convirtamos cada uno en el ejemplo a seguir del otro. Solo así podremos solventar nuestros problemas, aprendiendo y analizando cómo el otro los sortea para salir de todo lo que nos angustia. Necesito que crezcamos juntos, física y mentalmente.`
+`Por añadir todavía`
 
     },
 
 
     acostado: {
 
-        number: "06",
+        number: "07",
 
         title: "ACOSTADO EN TU PECHO",
 
         password: ACOSTADO_PASSWORD,
 
         content:
-`Lo protegido que me siento cuando estoy entre tus brazos no puede ser
-descrito ni en miles de poemas, nunca dejes de abrazarme. Uno de los
-textos que te escribí ya tocaba este tema, lo hice aposta para poder
-confundirte un poco con las contraseñas y que fuese algo más
-entretenido.
+`Por añadir todavía`
 
-Hace no mucho me
-preguntaste que qué prefería, si tumbarme yo en tu pecho o que lo
-hicieras tú…
+    },
 
-Bueno… Si te soy plenamente sincero creo que necesito las dos, pues con ellas tiene sentido una pareja. Yo te cuido primero y te canto una canción y tu me proteges después sintiendo mi respiración...`
+
+    teMiro: {
+
+        number: "08",
+
+        title: "TE MIRO Y NO SÉ NADA",
+
+        password: TE_MIRO_PASSWORD,
+
+        content:
+`Por añadir todavía`
 
     }
 
 };
 
 
-document
-    .querySelectorAll(".reflection-item[data-reflection]")
-    .forEach(item => {
+// ===============================
+// ABRIR REFLEXIONES SIN CONTRASEÑA
+// ===============================
 
-        item.addEventListener("click", () => {
+document.querySelectorAll(
+    ".reflection-item[data-reflection]"
+).forEach(item => {
 
-            const key = item.dataset.reflection;
-            const content = reflections[key];
+    item.addEventListener("click", () => {
 
-            if (!content) return;
+        const key = item.dataset.reflection;
+        const reflection = reflections[key];
+
+        if (!reflection) return;
+
+        openModal(
+            reflection.number,
+            reflection.title,
+            reflection.content
+        );
+
+    });
+
+});
+
+
+// ===============================
+// ABRIR REFLEXIONES PROTEGIDAS
+// ===============================
+
+document.querySelectorAll(
+    ".locked-reflection"
+).forEach(item => {
+
+    item.addEventListener("click", () => {
+
+        const key = item.dataset.lockedReflection;
+        const reflection = protectedReflections[key];
+
+        if (!reflection) return;
+
+        const password = prompt(
+            `Esta reflexión está protegida.\n\nIntroduce la contraseña:`
+        );
+
+        if (password === null) {
+            return;
+        }
+
+        if (password.trim() === reflection.password) {
 
             openModal(
-                content.number,
-                content.title,
-                content.content
+                reflection.number,
+                reflection.title,
+                reflection.content
             );
 
-        });
+        } else {
 
-    });
-
-
-document
-    .querySelectorAll(".locked-reflection")
-    .forEach(item => {
-
-        item.addEventListener("click", () => {
-
-            const key =
-                item.dataset.lockedReflection;
-
-            const reflection =
-                protectedReflections[key];
-
-            if (!reflection) return;
-
-            const password = prompt(
-                "Esta reflexión está protegida.\n\nIntroduce la contraseña:"
+            openModal(
+                "🔒",
+                "CONTRASEÑA INCORRECTA",
+                "No es esa contraseña..."
             );
 
-            if (password === null) return;
-
-            if (
-                password.trim() ===
-                reflection.password
-            ) {
-
-                openModal(
-                    reflection.number,
-                    reflection.title,
-                    reflection.content
-                );
-
-            } else {
-
-                openModal(
-                    "🔒",
-                    "ACCESO DENEGADO",
-                    "Esa no es la palabra que estás buscando."
-                );
-
-            }
-
-        });
+        }
 
     });
 
+});
 
-document
-    .querySelectorAll(".locked-content")
-    .forEach(item => {
 
-        item.addEventListener("click", () => {
+// ===============================
+// MODAL
+// ===============================
 
-            const type = item.dataset.locked;
-
-            if (type === "video") {
-
-                openModal(
-                    "🔒",
-                    "VÍDEO",
-                    "Mmm... creo que todavía no tienes acceso a esto."
-                );
-
-            }
-
-            if (type === "book") {
-
-                openModal(
-                    "🔒",
-                    "AMOR EN RIMAS II",
-                    "UPS... parece que todavía no puedes abrirlo."
-                );
-
-            }
-
-        });
-
-    });
-
+const contentModal = document.getElementById("contentModal");
+const modalNumber = document.getElementById("modalNumber");
+const modalTitle = document.getElementById("modalTitle");
+const modalContent = document.getElementById("modalContent");
 
 function openModal(number, title, content) {
+
+    if (!contentModal) return;
 
     if (modalNumber) {
         modalNumber.textContent = number;
@@ -502,42 +449,31 @@ function openModal(number, title, content) {
         modalContent.textContent = content;
     }
 
-    if (modal) {
-        modal.classList.add("active");
-    }
-
+    contentModal.classList.add("active");
 }
 
 
-function closeContentModal() {
+// Cerrar modal
+document.querySelectorAll(
+    "[data-close-modal]"
+).forEach(button => {
 
-    if (modal) {
-        modal.classList.remove("active");
-    }
+    button.addEventListener("click", () => {
+        contentModal.classList.remove("active");
+    });
 
-}
-
-
-if (closeModal) {
-
-    closeModal.addEventListener(
-        "click",
-        closeContentModal
-    );
-
-}
+});
 
 
-const modalBackground =
-    document.querySelector(".modal-background");
+if (contentModal) {
 
+    contentModal.addEventListener("click", event => {
 
-if (modalBackground) {
+        if (event.target === contentModal) {
+            contentModal.classList.remove("active");
+        }
 
-    modalBackground.addEventListener(
-        "click",
-        closeContentModal
-    );
+    });
 
 }
 
@@ -545,11 +481,43 @@ if (modalBackground) {
 document.addEventListener("keydown", event => {
 
     if (event.key === "Escape") {
-        closeContentModal();
+
+        if (
+            contentModal &&
+            contentModal.classList.contains("active")
+        ) {
+            contentModal.classList.remove("active");
+        }
+
     }
 
 });
 
+
+// ===============================
+// CONTENIDO BLOQUEADO DEL REGALO
+// ===============================
+
+document.querySelectorAll(
+    ".locked-gift"
+).forEach(item => {
+
+    item.addEventListener("click", () => {
+
+        openModal(
+            "🔒",
+            "TODAVÍA NO",
+            "Esto todavía no está preparado..."
+        );
+
+    });
+
+});
+
+
+// ===============================
+// JUEGO DE MEMORIA
+// ===============================
 
 const memorySymbols = [
     "🐿️",
@@ -572,79 +540,36 @@ const memorySymbols = [
 
 const gameLevels = [
     {
-        amount: 4,
-        roman: "I"
+        level: 1,
+        roman: "I",
+        amount: 4
     },
     {
-        amount: 6,
-        roman: "II"
+        level: 2,
+        roman: "II",
+        amount: 6
     },
     {
-        amount: 8,
-        roman: "III"
+        level: 3,
+        roman: "III",
+        amount: 8
     },
     {
-        amount: 10,
-        roman: "IV"
+        level: 4,
+        roman: "IV",
+        amount: 10
     },
     {
-        amount: 12,
-        roman: "V"
+        level: 5,
+        roman: "V",
+        amount: 12
     },
     {
-        amount: 15,
-        roman: "VI"
+        level: 6,
+        roman: "VI",
+        amount: 15
     }
 ];
-
-
-const gameIntro =
-    document.getElementById("gameIntro");
-
-const gameLevel =
-    document.getElementById("gameLevel");
-
-const levelSuccess =
-    document.getElementById("levelSuccess");
-
-const gameFailure =
-    document.getElementById("gameFailure");
-
-const gameFinal =
-    document.getElementById("gameFinal");
-
-
-const startGameButton =
-    document.getElementById("startGameButton");
-
-const nextLevelButton =
-    document.getElementById("nextLevelButton");
-
-const retryGameButton =
-    document.getElementById("retryGameButton");
-
-
-const sequenceArea =
-    document.getElementById("sequenceArea");
-
-const gameGrid =
-    document.getElementById("gameGrid");
-
-
-const levelNumber =
-    document.getElementById("levelNumber");
-
-const levelProgress =
-    document.getElementById("levelProgress");
-
-const levelTitle =
-    document.getElementById("levelTitle");
-
-const levelInstruction =
-    document.getElementById("levelInstruction");
-
-const gameFeedback =
-    document.getElementById("gameFeedback");
 
 
 let currentLevel = 0;
@@ -653,262 +578,182 @@ let playerSequence = [];
 let acceptingInput = false;
 
 
-function showGameView(view) {
+// Elementos del juego
+const gameLevel = document.getElementById("gameLevel");
+const sequenceDisplay = document.getElementById("sequenceDisplay");
+const memoryGrid = document.getElementById("memoryGrid");
+const gameMessage = document.getElementById("gameMessage");
 
-    [
-        gameIntro,
-        gameLevel,
-        levelSuccess,
-        gameFailure,
-        gameFinal
-    ].forEach(element => {
+const gameStart = document.getElementById("gameStart");
+const gameNext = document.getElementById("gameNext");
+const gameRetry = document.getElementById("gameRetry");
 
-        if (element) {
-            element.classList.remove("active");
+const gameIntro = document.getElementById("gameIntro");
+const gamePlay = document.getElementById("gamePlay");
+const gameSuccess = document.getElementById("gameSuccess");
+const gameFailure = document.getElementById("gameFailure");
+const gameFinal = document.getElementById("gameFinal");
+
+
+// Mezclar array
+function shuffle(array) {
+
+    const result = [...array];
+
+    for (let i = result.length - 1; i > 0; i--) {
+
+        const j =
+            Math.floor(Math.random() * (i + 1));
+
+        [result[i], result[j]] =
+            [result[j], result[i]];
+    }
+
+    return result;
+}
+
+
+// Comenzar juego
+if (gameStart) {
+
+    gameStart.addEventListener("click", () => {
+
+        currentLevel = 0;
+
+        if (gameIntro) {
+            gameIntro.classList.add("hidden");
         }
+
+        if (gamePlay) {
+            gamePlay.classList.remove("hidden");
+        }
+
+        startLevel();
 
     });
 
-    if (view) {
-        view.classList.add("active");
+}
+
+
+// Empezar nivel
+function startLevel() {
+
+    const level = gameLevels[currentLevel];
+
+    if (!level) {
+        finishGame();
+        return;
     }
-
-}
-
-
-if (startGameButton) {
-
-    startGameButton.addEventListener(
-        "click",
-        () => {
-
-            currentLevel = 0;
-            startCurrentLevel();
-
-        }
-    );
-
-}
-
-
-function generateSequence(amount) {
-
-    const shuffled =
-        [...memorySymbols];
-
-    shuffleArray(shuffled);
-
-    return shuffled.slice(0, amount);
-
-}
-
-
-function shuffleArray(array) {
-
-    for (
-        let i = array.length - 1;
-        i > 0;
-        i--
-    ) {
-
-        const j =
-            Math.floor(
-                Math.random() * (i + 1)
-            );
-
-        [
-            array[i],
-            array[j]
-        ] =
-        [
-            array[j],
-            array[i]
-        ];
-
-    }
-
-    return array;
-
-}
-
-
-function startCurrentLevel() {
-
-    const level =
-        gameLevels[currentLevel];
-
-    if (!level) return;
-
-    currentSequence =
-        generateSequence(level.amount);
 
     playerSequence = [];
+
     acceptingInput = false;
 
-    showGameView(gameLevel);
-
-    if (levelNumber) {
-        levelNumber.textContent =
+    if (gameLevel) {
+        gameLevel.textContent =
             `NIVEL ${level.roman}`;
     }
 
-    if (levelProgress) {
-        levelProgress.textContent =
-            `${currentLevel + 1} / ${gameLevels.length}`;
-    }
-
-    if (levelTitle) {
-        levelTitle.textContent = "RECUERDA";
-    }
-
-    if (levelInstruction) {
-        levelInstruction.textContent =
-            "Observa bien...";
-    }
-
-    if (gameFeedback) {
-        gameFeedback.textContent = "";
-    }
-
-    if (sequenceArea) {
-        sequenceArea.innerHTML = "";
-    }
-
-    if (gameGrid) {
-        gameGrid.innerHTML = "";
-    }
+    currentSequence =
+        shuffle(memorySymbols).slice(
+            0,
+            level.amount
+        );
 
     showSequence();
 
 }
 
 
-async function showSequence() {
+// Mostrar secuencia
+function showSequence() {
 
-    if (!sequenceArea) return;
+    if (!sequenceDisplay) return;
 
-    sequenceArea.innerHTML = "";
+    sequenceDisplay.innerHTML = "";
 
-    await wait(600);
+    currentSequence.forEach(symbol => {
 
-    for (
-        let i = 0;
-        i < currentSequence.length;
-        i++
-    ) {
+        const span = document.createElement("span");
 
-        const symbol =
-            document.createElement("div");
+        span.textContent = symbol;
 
-        symbol.className =
-            "sequence-symbol";
-
-        symbol.textContent =
-            currentSequence[i];
-
-        symbol.style.animationDelay =
-            `${i * 0.08}s`;
-
-        sequenceArea.appendChild(symbol);
-
-        await wait(330);
-
-    }
-
-    await wait(1300);
-
-    sequenceArea.innerHTML = "";
-
-    if (levelTitle) {
-        levelTitle.textContent = "AHORA TÚ";
-    }
-
-    if (levelInstruction) {
-        levelInstruction.textContent =
-            "Repite la secuencia en el mismo orden.";
-    }
-
-    createMemoryGrid();
-
-}
-
-
-function createMemoryGrid() {
-
-    if (!gameGrid) return;
-
-    gameGrid.innerHTML = "";
-
-    const shuffledSymbols =
-        [...memorySymbols];
-
-    shuffleArray(shuffledSymbols);
-
-    shuffledSymbols.forEach(symbol => {
-
-        const card =
-            document.createElement("button");
-
-        card.className = "memory-card";
-
-        card.textContent = symbol;
-
-        card.dataset.symbol = symbol;
-
-        card.addEventListener(
-            "click",
-            () => handleMemoryClick(
-                card,
-                symbol
-            )
-        );
-
-        gameGrid.appendChild(card);
+        sequenceDisplay.appendChild(span);
 
     });
 
-    acceptingInput = true;
+    setTimeout(() => {
+
+        sequenceDisplay.innerHTML = "";
+
+        createMemoryGrid();
+
+        acceptingInput = true;
+
+    }, 1800);
 
 }
 
 
-function handleMemoryClick(card, symbol) {
+// Crear botones del juego
+function createMemoryGrid() {
+
+    if (!memoryGrid) return;
+
+    memoryGrid.innerHTML = "";
+
+    const shuffledSymbols =
+        shuffle(currentSequence);
+
+    shuffledSymbols.forEach((symbol, index) => {
+
+        const button =
+            document.createElement("button");
+
+        button.className = "memory-card";
+        button.textContent = symbol;
+        button.dataset.symbol = symbol;
+        button.dataset.index = index;
+
+        button.addEventListener(
+            "click",
+            () => selectMemoryCard(button)
+        );
+
+        memoryGrid.appendChild(button);
+
+    });
+
+}
+
+
+// Seleccionar símbolo
+function selectMemoryCard(button) {
 
     if (!acceptingInput) return;
 
-    if (
-        card.classList.contains("selected")
-    ) {
-        return;
-    }
-
-    const expectedSymbol =
-        currentSequence[playerSequence.length];
-
-    if (symbol !== expectedSymbol) {
-
-        acceptingInput = false;
-
-        card.classList.add("wrong");
-
-        if (gameFeedback) {
-            gameFeedback.textContent =
-                "Ese no era...";
-        }
-
-        setTimeout(() => {
-
-            showGameView(gameFailure);
-
-        }, 650);
-
-        return;
-
-    }
+    const symbol = button.dataset.symbol;
 
     playerSequence.push(symbol);
 
-    card.classList.add("selected");
+    button.classList.add("selected");
+
+    const currentIndex =
+        playerSequence.length - 1;
+
+    if (
+        symbol !== currentSequence[currentIndex]
+    ) {
+
+        acceptingInput = false;
+
+        setTimeout(() => {
+            failGame();
+        }, 300);
+
+        return;
+    }
+
 
     if (
         playerSequence.length ===
@@ -918,281 +763,126 @@ function handleMemoryClick(card, symbol) {
         acceptingInput = false;
 
         setTimeout(() => {
-
             levelCompleted();
-
-        }, 500);
+        }, 400);
 
     }
 
 }
 
 
+// Nivel completado
 function levelCompleted() {
 
-    if (
-        currentLevel ===
-        gameLevels.length - 1
-    ) {
-
-        finishGame();
-
-        return;
-
+    if (gamePlay) {
+        gamePlay.classList.add("hidden");
     }
 
-    const nextAmount =
-        gameLevels[
-            currentLevel + 1
-        ].amount;
-
-    const successText =
-        document.getElementById(
-            "levelSuccessText"
-        );
-
-    if (successText) {
-
-        successText.textContent =
-            `Bien. Pero todavía quedan cosas que recordar. El siguiente nivel tiene ${nextAmount} símbolos.`;
-
+    if (gameSuccess) {
+        gameSuccess.classList.remove("hidden");
     }
 
-    showGameView(levelSuccess);
-
 }
 
 
-if (nextLevelButton) {
+// Siguiente nivel
+if (gameNext) {
 
-    nextLevelButton.addEventListener(
-        "click",
-        () => {
+    gameNext.addEventListener("click", () => {
 
-            currentLevel++;
-            startCurrentLevel();
+        currentLevel++;
+
+        if (currentLevel >= gameLevels.length) {
+
+            finishGame();
+
+        } else {
+
+            if (gameSuccess) {
+                gameSuccess.classList.add("hidden");
+            }
+
+            if (gamePlay) {
+                gamePlay.classList.remove("hidden");
+            }
+
+            startLevel();
 
         }
-    );
-
-}
-
-
-if (retryGameButton) {
-
-    retryGameButton.addEventListener(
-        "click",
-        () => {
-
-            currentLevel = 0;
-            startCurrentLevel();
-
-        }
-    );
-
-}
-
-
-function wait(milliseconds) {
-
-    return new Promise(resolve => {
-
-        setTimeout(resolve, milliseconds);
 
     });
 
 }
 
 
-async function finishGame() {
+// Fallar
+function failGame() {
 
-    acceptingInput = false;
-
-    showGameView(gameFinal);
-
-    const finalSymbols =
-        document.getElementById("finalSymbols");
-
-    const finalMessage =
-        document.getElementById("finalMessage");
-
-    const passwordReveal =
-        document.getElementById("passwordReveal");
-
-    const revealedPassword =
-        document.getElementById("revealedPassword");
-
-    const finalParticles =
-        document.getElementById("finalParticles");
-
-
-    if (finalSymbols) {
-        finalSymbols.innerHTML = "";
+    if (gamePlay) {
+        gamePlay.classList.add("hidden");
     }
 
-    if (passwordReveal) {
-        passwordReveal.classList.remove("show");
+    if (gameFailure) {
+        gameFailure.classList.remove("hidden");
     }
 
-    if (revealedPassword) {
-        revealedPassword.innerHTML = "";
-    }
+}
 
-    if (finalParticles) {
-        finalParticles.innerHTML = "";
-    }
 
-    createFinalParticles();
+// Reintentar
+if (gameRetry) {
 
-    await wait(1300);
+    gameRetry.addEventListener("click", () => {
 
-    if (finalSymbols) {
-
-        for (
-            let i = 0;
-            i < memorySymbols.length;
-            i++
-        ) {
-
-            const symbol =
-                document.createElement("span");
-
-            symbol.className =
-                "final-symbol";
-
-            symbol.textContent =
-                memorySymbols[i];
-
-            symbol.style.animationDelay =
-                `${i * 0.11}s`;
-
-            finalSymbols.appendChild(symbol);
-
-            await wait(110);
-
+        if (gameFailure) {
+            gameFailure.classList.add("hidden");
         }
 
-    }
+        if (gamePlay) {
+            gamePlay.classList.remove("hidden");
+        }
 
-    await wait(2500);
+        startLevel();
 
-    if (finalMessage) {
-        finalMessage.style.opacity = "0";
-    }
-
-    await wait(1300);
-
-    if (passwordReveal) {
-        passwordReveal.classList.add("show");
-    }
-
-    await revealPassword();
+    });
 
 }
 
 
-async function revealPassword() {
+// ===============================
+// FINAL DEL JUEGO
+// ===============================
 
-    const revealedPassword =
-        document.getElementById(
-            "revealedPassword"
-        );
+function finishGame() {
 
-    if (!revealedPassword) return;
+    if (gamePlay) {
+        gamePlay.classList.add("hidden");
+    }
 
-    revealedPassword.innerHTML = "";
+    if (gameSuccess) {
+        gameSuccess.classList.add("hidden");
+    }
 
-    for (
-        let i = 0;
-        i < FINAL_PASSWORD.length;
-        i++
-    ) {
+    if (gameFinal) {
+        gameFinal.classList.remove("hidden");
+    }
 
-        const character =
-            document.createElement("span");
+    const finalPasswordElement =
+        document.getElementById("finalPassword");
 
-        character.className =
-            "password-character";
+    if (finalPasswordElement) {
 
-        character.textContent =
-            FINAL_PASSWORD[i];
-
-        character.style.animationDelay =
-            `${i * 0.12}s`;
-
-        revealedPassword.appendChild(
-            character
-        );
-
-        await wait(130);
+        finalPasswordElement.textContent =
+            FINAL_PASSWORD;
 
     }
 
 }
 
 
-function createFinalParticles() {
-
-    const container =
-        document.getElementById(
-            "finalParticles"
-        );
-
-    if (!container) return;
-
-    const particleSymbols = [
-        "·",
-        "✦",
-        "✧",
-        "•",
-        "⋆",
-        "✶"
-    ];
-
-    for (
-        let i = 0;
-        i < 35;
-        i++
-    ) {
-
-        const particle =
-            document.createElement("span");
-
-        particle.className =
-            "final-particle";
-
-        particle.textContent =
-            particleSymbols[
-                Math.floor(
-                    Math.random() *
-                    particleSymbols.length
-                )
-            ];
-
-        particle.style.left =
-            `${Math.random() * 100}%`;
-
-        particle.style.top =
-            `${60 + Math.random() * 40}%`;
-
-        particle.style.animationDuration =
-            `${4 + Math.random() * 6}s`;
-
-        particle.style.animationDelay =
-            `${Math.random() * 3}s`;
-
-        container.appendChild(particle);
-
-    }
-
-}
-
-
+// Continuar después del juego
 const continueAfterGame =
-    document.getElementById(
-        "continueAfterGame"
-    );
-
+    document.getElementById("continueAfterGame");
 
 if (continueAfterGame) {
 
@@ -1208,25 +898,154 @@ if (continueAfterGame) {
 }
 
 
+// Volver desde el juego
 const gameBack =
-    document.querySelector(".game-back");
-
+    document.getElementById("gameBack");
 
 if (gameBack) {
 
-    gameBack.addEventListener(
-        "click",
-        () => {
+    gameBack.addEventListener("click", () => {
 
-            currentLevel = 0;
-            currentSequence = [];
-            playerSequence = [];
-            acceptingInput = false;
+        currentLevel = 0;
 
-            showGameView(gameIntro);
-            showScreen("home");
+        showScreen("home");
 
-        }
-    );
+    });
 
 }
+
+
+// ===============================
+// QR — REFLEXIONES DIRECTAS
+// ===============================
+
+const reflectionHashes = {
+
+    "cambios": {
+        type: "public",
+        key: "cambios"
+    },
+
+    "espejos": {
+        type: "public",
+        key: "espejosReflection"
+    },
+
+    "besos-enfrentados": {
+        type: "public",
+        key: "besos"
+    },
+
+    "autoexigencia": {
+        type: "protected",
+        key: "autoexigencia"
+    },
+
+    "cuentagotas": {
+        type: "protected",
+        key: "cuentagotas"
+    },
+
+    "guerrera": {
+        type: "protected",
+        key: "guerrera"
+    },
+
+    "acostado-en-tu-pecho": {
+        type: "protected",
+        key: "acostado"
+    },
+
+    "te-miro-y-no-se-nada": {
+        type: "protected",
+        key: "teMiro"
+    }
+
+};
+
+
+// Procesar QR
+function handleReflectionHash() {
+
+    const rawHash =
+        window.location.hash.replace("#", "").trim();
+
+    if (!rawHash) return;
+
+    const hash =
+        decodeURIComponent(rawHash).toLowerCase();
+
+    const reflection =
+        reflectionHashes[hash];
+
+    if (!reflection) return;
+
+
+    // Abrimos REFLEXIONES OCULTAS
+    showScreen("reflections");
+
+
+    if (reflection.type === "public") {
+
+        const data =
+            reflections[reflection.key];
+
+        if (!data) return;
+
+        openModal(
+            data.number,
+            data.title,
+            data.content
+        );
+
+        return;
+    }
+
+
+    if (reflection.type === "protected") {
+
+        const data =
+            protectedReflections[reflection.key];
+
+        if (!data) return;
+
+        const password = prompt(
+            `Esta reflexión está protegida.\n\nIntroduce la contraseña:`
+        );
+
+        if (password === null) {
+            return;
+        }
+
+
+        if (password.trim() === data.password) {
+
+            openModal(
+                data.number,
+                data.title,
+                data.content
+            );
+
+        } else {
+
+            openModal(
+                "🔒",
+                "CONTRASEÑA INCORRECTA",
+                "No es esa contraseña..."
+            );
+
+        }
+
+    }
+
+}
+
+
+// Si ya estamos dentro de la página y existe un hash,
+// intentamos procesarlo al cargar.
+document.addEventListener("DOMContentLoaded", () => {
+
+    // No saltamos la contraseña principal del portal.
+    // El QR se procesa después de desbloquear el portal.
+
+});
